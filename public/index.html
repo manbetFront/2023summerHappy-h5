@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi"
+    />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title>VN元旦专题活动</title>
+    <script src="<%= BASE_URL %>js/buggyfill.js"></script>
+    <script>
+      window.onload = function() {
+        window.viewportUnitsBuggyfill.init({
+          hacks: window.viewportUnitsBuggyfillHacks,
+        });
+      };
+    </script>
+  </head>
+
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <!-- <script src="https://www.spxry.com/framework/sdk/chat_sdk-1.0.0.js"></script> -->
+    <script>
+      function watchWindowSize() {
+        let type = watchtype();
+        let htmlWidth =
+          document.documentElement.clientWidth || document.body.clientWidth;
+        //获取htmlDom
+        let htmlDom = document.getElementsByTagName("html")[0];
+        //设置html的font-size
+        if (type == "h5") {
+          htmlDom.style.fontSize = htmlWidth / 10 + "px";
+        } else {
+          htmlDom.style.fontSize = htmlWidth / 120 + "px";
+        }
+      }
+      // 监听页面尺寸
+      window.addEventListener("resize", watchWindowSize);
+      watchWindowSize();
+
+      function watchtype() {
+        if (/(micromessenger)/i.test(navigator.userAgent)) {
+          // alert("微信");
+          this.isenv = "wechat";
+        } else {
+          // alert("普通浏览器");
+          // 判断h5还是pc true就是h5
+          let client = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+          if (client) {
+            return "h5";
+          } else {
+            return "pc";
+          }
+        }
+      }
+    </script>
+    <script
+      src="./lib/base64.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script
+      src="./lib/ai_webview_sdk_v1.0.0.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+  </body>
+</html>

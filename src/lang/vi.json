@@ -1,0 +1,62 @@
+{
+  "opennum": "Thời gian Event",
+  "singledep": "Áp dụng",
+  "gainchance": "Sản phẩm",
+  "getaward": "Tất cả thành viên",
+  "platform": "Được chỉ định",
+
+  "grandbet": "Biên bản nhận thưởng",
+  "granddep": "Trò Chơi",
+  "getmeet": "Thể Thao(Không bao gồm SABA Thể Thao) / Esports",
+  "opendrew": "Live Casino / Game Bài",
+  "todaycomp": "Số lần hoàn thành hôm nay",
+
+  "incentive": "Số lần hoàn thành",
+  "handsel": "Số tiền thưởng tích lũy",
+  "degree": "Lần",
+  "pulldown": "Nhận",
+
+  "opengold": "Mở khóa",
+  "goldchance": "Chưa mở khóa",
+  "threeflow": "Số tiền gửi tích lũy",
+  "failgold": "Nhân vật đã mở khóa",
+  "place": "Nhân Vật",
+  "raise": "Tiền Thưởng THÊM",
+
+  "drewover": "CHI TIẾT KHUYẾN MÃI",
+  "eggover": "Từ ngày 01/01/2023–05/01/2023, thành viên hoàn thành các nhiệm vụ sau sẽ nhận ngay phần thưởng Phúc Lộc Năm Mới.",
+  "themaone": "Hàng ngày thành viên hoàn thành các nhiệm vụ được chỉ định sẽ nhận ngay phần thưởng như sau:",
+  "game": "Sản Phẩm",
+  "task": "Nhiệm Vụ",
+  "taskmon": "Thưởng",
+  "tasklimit": "Tối Đa Trong Ngày",
+  "valid": "Doanh thu hợp lệ mỗi lần đáp ứng",
+  "tips1": "Nhiệm vụ sẽ được thiết lập lại vào lúc 00:00 hàng ngày, nếu nhiệm vụ chưa được hoàn thành trong ngày, các doanh thu sẽ được tính lại từ đầu vào ngày hôm sau.",
+
+  "extra": "Thành viên mở khóa 1 nhân vật với yêu cầu tiền gửi tích lũy hợp lệ mỗi lần đáp ứng ≥3,188 VNDK, hoàn thành số nhân vật mở khóa được chỉ định và các nhiệm vụ tương ứng, sẽ nhận thưởng theo bảng dưới đây",
+  "lock": "Mở Khóa Nhân Vật",
+  "over": "Hoàn Thành Nhiệm Vụ",
+  "source": "Thưởng Thêm",
+  "ent": "Nhiệm Vụ",
+
+  "event": "ĐIỀU KHOẢN & ĐIỀU KIỆN",
+  "actinfo1": "1.Thành viên cần nhấp vào để nhận Thưởng trong [Thời Gian Chỉ Định], nếu không, sẽ mất lượt tham gia khuyến mãi này.",
+  "actinfo2": "2.Sau khi nhận được tiền thưởng, thành viên không thể xin HỦY, và cần đáp ứng yêu cầu vòng cược năm (05) lần (Không bao gồm doanh thu SABA Thể Thao và Xổ Số) trước khi thực hiện rút tiền. ",
+  "actinfo3": "3.Khuyến mãi này chỉ áp dụng cùng lúc với HOÀN TRẢ MỖI NGÀY, không áp dụng cùng lúc với những khuyến mãi khác.",
+  "actinfo4": "4.ManBetX có quyền sửa đổi hoặc chấm dứt khuyến mãi ở bất kỳ thời điểm nào theo quyết định cuối cùng.",
+  "actinfo5": "5.Điều Khoản & Điều Kiện của ManBetX sẽ được áp dụng cho chương trình khuyến mãi này.",
+
+  "gotop": "Lên đầu trang",
+  "index": "Số thứ tự",
+  "order": "Số đơn",
+  "color": "Số tiền thắng",
+  "gettime": "Thời gian rút",
+
+  "congra": "Xin chúc mừng Quý khách đã gặt hái được",
+  "howmon": "Tiền thưởng",
+  "unlocks": "Mở khóa thành công",
+  "noerr": "Chưa đạt yêu cầu của chương trình. Hãy tiếp tục cố gắng nhé!",
+
+  "respect": "Chào Mừng Thành Viên",
+  "login": "Lập tức đăng nhập để tham gia Chương trình đặc biệt 'QUÀ TẾT DL' của ManBetX!"
+}

@@ -1,0 +1,22 @@
+{
+  "opennum": "Remaining gift box open times",
+  "singledep": "Single Deposit",
+  "gainchance": "Will get a chance to open the gift box",
+  "getaward": "Rewards are available in the Benefits Center",
+
+  "grandbet": "Cumulative valid bets",
+  "granddep": "Accumulated amount of deposits",
+  "getmeet": "Upon completion, you will receive",
+  "opendrew": "Times to open the gift box",
+
+  "incentive": "Rewards",
+  "handsel": "Bonus",
+
+  "opengold": "Remaining Golden Egg Times",
+  "goldchance": "Will get a chance to smash the golden egg",
+  "threeflow": "Times of turnover",
+  "failgold": "Chance to smash eggs",
+
+  "drewover": "Open the gift box opportunity is used up",
+  "eggover": "Golden egg opportunity is used up"
+}

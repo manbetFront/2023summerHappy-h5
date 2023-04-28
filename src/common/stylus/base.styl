@@ -1,0 +1,25 @@
+@import './var.styl'
+.center {
+  text-align center
+  margin 0 auto
+}
+.left {
+  text-align left
+}
+body {
+  
+  // background url('~common/image/bg.png') center top no-repeat #f4f5f9
+  // background-repeat no-repeat
+  // background-attachment fixed
+  // background-size 100% 100%
+  // background-position center
+  scroll-behavior smooth
+}
+.disabled {
+  opacity 0.9 // 设置蒙版效果
+  pointer-events none // 禁止鼠标事件
+}
+// 覆盖vw补丁副作用
+img {
+  content normal !important
+}

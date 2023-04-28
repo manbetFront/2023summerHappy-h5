@@ -1,0 +1,45 @@
+// 不换行
+no-wrap(n = 1) {
+  display -webkit-box
+  overflow hidden
+  white-space normal !important
+  text-overflow ellipsis
+  word-wrap break-word
+  -webkit-line-clamp n
+  -webkit-box-orient vertical
+}
+wrapper(){
+  width 1400px
+  margin 0 auto
+}
+// 扩展点击区域
+extend-click() {
+  &:before {
+    content ''
+    position absolute
+    top -10px
+    left -10px
+    right -10px
+    bottom -10px
+  }
+}
+// 清除浮动副作用
+clearfix() {
+  &:before, &:after {
+    content ''
+    display table
+  }
+  &:after {
+    clear both
+  }
+}
+// 字体渐变
+text-gradient(direction, color01, color02) {
+  background-image -webkit-linear-gradient(direction, color01, color02)
+  -webkit-background-clip text
+  -webkit-text-fill-color transparent
+}
+// 背景渐变
+background-gradient(direction, color01, color02){
+  background-image: linear-gradient(direction, color01, color02);
+}
