@@ -20,12 +20,10 @@ export const getMoneyAdd = (data) => {
 };
 
 // 活动主题
-export const cumulativeTheme = (params) => {
+export const cumulativeTheme = () => {
   return service({
     method: "get",
-    url: "/api/new_year/cumulative/list",
-    // url: "api/new_year/theme_one/list",
-    params: { ...params },
+    url: "/api/index",
   });
 };
 

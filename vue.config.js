@@ -16,6 +16,7 @@ module.exports = {
   productionSourceMap: false,
   filenameHashing: true,
   devServer: {
+    inline: true,
     open: process.platform === "darwin",
     host: "0.0.0.0",
     port: 8000,
@@ -45,6 +46,8 @@ module.exports = {
 
   lintOnSave: true,
   chainWebpack: (config) => {
+    // 热更新
+    config.resolve.symlinks(true);
     // set alias
     config.resolve.alias
       .set("@", resolve("src"))

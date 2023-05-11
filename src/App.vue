@@ -1,26 +1,22 @@
 <template>
   <div id="app">
-    <transition name="fade">
-      <div>
-        <router-view></router-view>
-      </div>
-    </transition>
+    <vue-login-tool :env-type-num="2" v-if="isShowComponents" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      isShowComponents: true,
+    };
   },
-  // watch: {
-  //   "$i18n.locale"(newVal, oldVal) {
-  //     console.log("app", newVal, oldVal);
-  //     if (newVal !== oldVal) {
-  //       location.reload();
-  //     }
-  //   },
-  // },
+  created() {
+    if (process.env.VUE_APP_TITLE === "PROD") {
+      this.isShowComponents = false;
+    }
+  },
 };
 </script>
 

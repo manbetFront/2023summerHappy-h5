@@ -1,7 +1,7 @@
 import axios from "axios";
 // import store from "@/store";
 import { Message } from "element-ui";
-import { getUsernameByPlatform, isApp } from "@/common/js/utils.js";
+import { getUrlParams } from "@/common/js/utils.js";
 
 // create an axios instance
 const service = axios.create({
@@ -13,7 +13,10 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   async (config) => {
-    config.headers["platform"] = "vn";
+    try {
+      config.headers["Authorization"] = getUrlParams().username || "";
+    } catch (e) {}
+    config.headers["action"] = "web";
     return config;
   },
   (error) => {

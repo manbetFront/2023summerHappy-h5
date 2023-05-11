@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h3 @click="isShow = true">点击</h3>
+    <!-- <h3 @click="isShow = true">点击</h3> -->
 
     <iframe v-if="isShow" id="myFrame" :src="url"></iframe>
   </div>

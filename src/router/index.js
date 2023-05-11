@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 const strokeAnalysis = () => import("@/pages/home/index.vue");
-const newyearpc = () => import("@/pages/newyearpc/index.vue");
-const newyearh5 = () => import("@/pages/newyearh5/index.vue");
+const summerpc = () => import("@/pages/summerpc/index.vue");
+const summerh5 = () => import("@/pages/summerh5/index.vue");
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,14 +17,14 @@ const routes = [
     component: strokeAnalysis,
   },
   {
-    path: "/newyear_pc",
-    name: "cnewyear_pc",
-    component: newyearpc,
+    path: "/summer_pc",
+    name: "summer_pc",
+    component: summerpc,
   },
   {
-    path: "/newyear_h5",
-    name: "newyear_h5",
-    component: newyearh5,
+    path: "/summer_h5",
+    name: "summer_h5",
+    component: summerh5,
   },
 ];
 
