@@ -6,7 +6,7 @@ import "@/common/stylus/index.styl";
 import vueLoginTool from "vue-login-tool";
 // import vConsole from 'vconsole'
 // new vConsole()
-
+import { getUrlParams } from "@/common/js/utils";
 // 导入 vue-i18n 插件
 import i18n from "./i18n";
 import { Message } from "element-ui";

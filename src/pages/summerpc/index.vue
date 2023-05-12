@@ -27,7 +27,17 @@
           活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下
           要求，即可获得对应彩金奖励，完成平台数越多奖励越多。
         </div>
-        <div class="datecheck"></div>
+        <div class="datecheck">
+          <div
+            :class="isWeek ? 'triangle' : 'triangle blue'"
+            @click="changeSubWeek"
+          ></div>
+          <div class="riqi">自然周：{{ showWeek }}</div>
+          <div
+            :class="isWeek ? 'trangle' : 'trangle yellow'"
+            @click="changeNowWeek"
+          ></div>
+        </div>
         <div class="tabs">
           <div
             :class="action == item.index ? 'tab active' : 'tab'"
@@ -46,24 +56,24 @@
             <div class="hfour">任务进度</div>
           </div>
           <div class="tbody">
-            <div class="bodyrow" v-for="(item, i) in platList" :key="item.name">
+            <div class="bodyrow" v-for="(item, i) in weekList" :key="item.name">
               <div class="tone">
                 <img :src="item.url" />
-                <div class="text">{{ item.name }}</div>
+                <div class="text">{{ item.platform_name }}</div>
               </div>
               <div class="ttwo">
                 <Progress
                   :text-inside="true"
                   color="#a9e9fb"
                   :stroke-width="20"
-                  :percentage="item.percent"
+                  :percentage="(item.effective_betting / 10) * 100"
                 ></Progress>
               </div>
-              <div class="tthree">{{ item.amount }}</div>
+              <div class="tthree">38元</div>
               <div class="tfour">
-                <div class="status1">立即投注</div>
-                <!-- <div>已完成</div>
-                <div>已过期</div> -->
+                <div class="status1" v-if="item.status == 0">立即投注</div>
+                <div v-if="item.status == 2">已完成</div>
+                <div v-if="item.status == 3">已过期</div>
               </div>
             </div>
           </div>
@@ -72,15 +82,39 @@
         <div class="getbox">
           <div class="mountbox">
             <div class="able">
-              <div class="avai">上周可领取彩金：xx元</div>
-              <div class="get">领取彩金</div>
+              <div class="avai">
+                上周可领取彩金：{{ activityContent.sub_week.amount }}元
+              </div>
+              <Button
+                @click="getThisWeek(activityContent.sub_week.amount, 2)"
+                :class="
+                  !activityContent.is_time_out &&
+                  activityContent.sub_week.amount
+                    ? 'get twink'
+                    : 'get'
+                "
+                size="mini"
+                :disabled="activityContent.is_time_out"
+                >{{
+                  activityContent.is_time_out ? "已过期" : "领取彩金"
+                }}</Button
+              >
             </div>
             <div class="able">
-              <div class="avai">本周可领取彩金：xx元</div>
-              <div class="draw">领取彩金</div>
+              <div class="avai">
+                本周可领取彩金：{{ activityContent.week.amount }}元
+              </div>
+              <Button
+                @click="getThisWeek(activityContent.week.amount, 1)"
+                :class="activityContent.week.amount ? 'draw twink' : 'draw'"
+                size="mini"
+                >领取彩金</Button
+              >
             </div>
           </div>
-          <div class="record">领取记录</div>
+          <Button class="record" size="mini" @click="getRecive(1)"
+            >领取记录</Button
+          >
         </div>
       </div>
 
@@ -104,18 +138,35 @@
         </div>
         <div class="mountbox">
           <div class="able">
-            <div class="avai">上周可领取彩金：xx元</div>
-            <div class="get">领取彩金</div>
+            <div class="avai">
+              已完成指定任务平台数：{{ activityContent.activity.count }}
+            </div>
+            <Button
+              @click="getThisWeek(activityContent.activity.reward, 3)"
+              :class="
+                activityContent.activity.reward && !activityContent.is_time_out
+                  ? 'get twink'
+                  : 'get'
+              "
+              size="mini"
+              :disabled="activityContent.is_time_out"
+              >领取彩金</Button
+            >
           </div>
           <div class="able">
-            <div class="avai">本周可领取彩金：xx元</div>
-            <div class="draw">领取彩金</div>
+            <div class="avai">
+              可领取额外活跃嘉奖：{{ activityContent.activity.reward }}元
+            </div>
+            <Button class="draw" size="mini" @click="getRecive(2)"
+              >领取记录</Button
+            >
           </div>
         </div>
       </div>
 
       <div class="rulebox">
         <img src="../../common/image/rule.png" />
+        <div class="ruletext">活动规则</div>
         <div class="content">
           <p>
             【申请方式】获得彩金奖励的会员，点击领取后系统将自动派发至您的游戏账户，届时请您查收。
@@ -141,48 +192,145 @@
     <div v-show="dialogVisible" class="model-box">
       <div class="modelveng" @click="dialogVisible = false"></div>
       <div class="modeltable">
-        <div class="chief">{{ $t("grandbet") }}</div>
-        <div class="table">
-          <div class="header three">
-            <div>{{ $t("index") }}</div>
-            <div>{{ $t("order") }}</div>
-            <div>{{ $t("color") }}</div>
-            <div class="time">{{ $t("gettime") }}</div>
+        <div class="bkg">
+          <div class="modeltitle">尊敬的用户您好！</div>
+          <div class="modelcontent">
+            登录即可参与ManBetX万博 “ 盛夏狂欢季 ” 专题活动！
           </div>
-          <div class="body three" v-for="(item, i) in listdata">
-            <div>{{ i + 1 }}</div>
-            <div>{{ item.order_no }}</div>
-            <div>{{ parseFloat(item.lottery_amount).toFixed(3) }}</div>
-            <div class="time">{{ item.created_at }}</div>
-          </div>
+          <img
+            class="dele"
+            @click="dialogVisible = false"
+            src="../../common/image/close.png"
+          />
         </div>
-        <img class="dele" @click="dialogVisible = false" src="" />
       </div>
     </div>
 
-    <div v-show="darwdialog" class="model-box">
-      <div class="modelveng" @click="darwdialog = false"></div>
+    <div v-show="tipdialog" class="model-box">
+      <div class="modelveng" @click="tipdialog = false"></div>
       <div class="back_box">
         <div class="post">
-          <!-- <img class="back" src="../../common/img/tips2.png" /> -->
-          <div class="num">{{ parseFloat(money).toFixed(3) }} VNDK</div>
-          <div class="cons">{{ $t("congra") }}</div>
-          <div class="dele">
-            <!-- <img @click="darwdialog = false" src="../../common/img/del.png" /> -->
+          <div class="cbg">
+            <div class="modeltitle">温馨提示</div>
+            <div class="modelcontent">
+              您将领彩金{{ moneyNum }}元，确认后无法取消，详情可至派发记录查阅
+            </div>
+            <div class="btns">
+              <div @click="confirm">确认</div>
+              <div class="cans" @click="tipdialog = false">取消</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-show="initdialog" class="model-box">
+      <div class="modelveng" @click="initdialog = false"></div>
+      <div class="back_box">
+        <div class="post">
+          <div class="cbg">
+            <div class="modeltitle">温馨提示</div>
+            <div class="modelcontent">
+              亲，您有彩金未领取，请尽快领哦~
+            </div>
+            <div class="btns center">
+              <div @click="initdialog = false">确认</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-show="showlogin" class="model-box">
-      <div class="modelveng" @click="showlogin = false"></div>
+    <div v-show="drawdialog" class="model-box">
+      <div class="modelveng" @click="drawdialog = false"></div>
       <div class="login_box">
         <div class="post">
-          <!-- <img class="back" src="../../common/img/top.png" /> -->
-          <div class="num">{{ $t("respect") }}</div>
-          <div class="cons">{{ $t("login") }}</div>
-          <div class="dele">
-            <!-- <img @click="showlogin = false" src="../../common/img/del.png" /> -->
+          <img
+            class="close"
+            @click="drawdialog = false"
+            src="../../common/image/close.png"
+          />
+          <img class="back" src="../../common/image/rule.png" />
+          <div class="title">派发记录</div>
+          <div class="container">
+            <div class="consbox">
+              <div class="table">
+                <div class="header">
+                  <div class="one">序号</div>
+                  <div class="two">完成任务平台名称</div>
+                  <div class="three">领取时间</div>
+                  <div class="four">金额</div>
+                  <div class="five">状态</div>
+                </div>
+                <div>
+                  <div
+                    class="body"
+                    v-for="(item, i) in onelistdata"
+                    :key="item.platform_name"
+                  >
+                    <div class="one">{{ i + 1 }}</div>
+                    <div class="two">{{ item.platform_name }}</div>
+                    <div class="three">
+                      {{ item.draw_time ? item.draw_time : "-" }}
+                    </div>
+                    <div class="four">{{ item.amount }}</div>
+                    <div class="five">
+                      {{
+                        status == 1
+                          ? "待领取"
+                          : status == 2
+                          ? "已领取"
+                          : "已过期"
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-show="themedialog" class="model-box">
+      <div class="modelveng" @click="themedialog = false"></div>
+      <div class="login_box">
+        <div class="post">
+          <img
+            class="close"
+            @click="themedialog = false"
+            src="../../common/image/close.png"
+          />
+          <img class="back" src="../../common/image/rule.png" />
+          <div class="title">派发记录</div>
+          <div class="container">
+            <div class="consbox">
+              <div class="table">
+                <div class="header">
+                  <div>序号</div>
+                  <div>额外活跃嘉奖彩金</div>
+                  <div>领取时间</div>
+                  <div>状态</div>
+                </div>
+                <div>
+                  <div class="body" v-for="(item, i) in twolistdata" :key="i">
+                    <div>{{ i + 1 }}</div>
+                    <div>{{ item.amount }}</div>
+                    <div>
+                      {{ item.draw_time ? item.draw_time : "-" }}
+                    </div>
+                    <div>
+                      {{
+                        status == 1
+                          ? "待领取"
+                          : status == 2
+                          ? "已领取"
+                          : "已过期"
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -192,7 +340,7 @@
 
 <script>
 import Vue from "vue";
-import { Progress, Dialog, Table, Loading } from "element-ui";
+import { Progress, Dialog, Table, Loading, Button } from "element-ui";
 Vue.use(Progress)
   .use(Dialog)
   .use(Table)
@@ -200,96 +348,104 @@ Vue.use(Progress)
 import { _debounce } from "@/utils";
 import { mapGetters } from "vuex";
 
-import { getReceiveList, cumulativeTheme, getMoneyAdd, getunlock } from "@/api";
+import {
+  cumulativeTheme,
+  getReceiveList,
+  getThemeList,
+  getNowWeekMoney,
+  getSubWeekMoney,
+  getAwardCommen,
+} from "@/api";
 export default {
   components: {
     Progress: Progress,
+    Button,
   },
   data() {
     return {
       checkList: [
         { name: "真人平台", index: 1 },
-        { name: "棋牌平台", index: 2 },
-        { name: "电子平台", index: 3 },
+        { name: "棋牌平台", index: 3 },
+        { name: "电子平台", index: 5 },
       ],
       action: 1,
       platList: [
         {
           url: require("../../common/image/peopleicon/bbin真人.png"),
-          name: "BBIN娱乐",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "BBIN娱乐",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/万博娱乐.png"),
-          name: "万博娱乐",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "万博娱乐",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ae真人.png"),
-          name: "AE性感百家",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "AE性感百家",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ag娱乐.png"),
-          name: "AG娱乐",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "AG娱乐",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/完美视讯.png"),
-          name: "完美视讯",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "完美视讯",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/欧博娱乐.png"),
-          name: "鸥博娱乐",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "鸥博娱乐",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ogplus.png"),
-          name: "OG Plus",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "OG Plus",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/evo真人.png"),
-          name: "EVO真人",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "EVO真人",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/万博实地厅.png"),
-          name: "万博实地厅",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "万博实地厅",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/cq9真人.png"),
-          name: "CQ9真人",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "CQ9真人",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/bg娱乐.png"),
-          name: "BG娱乐",
-          percent: 23,
-          amount: "38元",
-          status: 1,
+          // name: "BG娱乐",
+          // percent: 23,
+          // amount: "38元",
+          // status: 1,
         },
       ],
       taskList: [
@@ -297,11 +453,35 @@ export default {
         { num: "≥9", amount: "50" },
         { num: "≥15", amount: "100" },
       ],
-
+      activityContent: {
+        sub_week: { amount: "" },
+        week: { amount: "" },
+        activity: { count: "" },
+        is_time_out: "",
+      },
+      weekList: [],
+      weekimmon: [],
+      weekelect: [],
+      weekchess: [],
+      weeksubimmon: [],
+      weeksubelect: [],
+      weeksubchess: [],
+      showWeek: "",
+      nowWeek: "",
+      subWeek: "",
+      isWeek: true, //true本周，false上周
       dialogVisible: false,
-      darwdialog: false,
-      showlogin: false,
+      tipdialog: false,
+      drawdialog: false,
+      themedialog: false,
+      initdialog: false,
       loading: "",
+
+      onelistdata: [],
+      twolistdata: [],
+
+      moneyNum: "",
+      getType: 1,
     };
   },
   computed: {
@@ -317,168 +497,314 @@ export default {
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
     const isbro = this.judgeBrowser();
-    console.log(isbro);
     if (isbro == "h5") {
       this.$router.replace(`/summer_h5`);
     }
     this.getheme();
+
+    let res = this.getMondayAndSunday();
+
+    this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+    this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
+    this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
   },
   methods: {
     // 获取页面信息
-    async getheme(user_id) {
-      let list = [
-        // { img: require("../../common/imgs/1@2x.png") },
-        // { img: require("../../common/imgs/2@2x.png") },
-        // { img: require("../../common/imgs/3@2x.png") },
-        // { img: require("../../common/imgs/4@2x.png") },
-        // { img: require("../../common/imgs/5@2x.png") },
-        // { img: require("../../common/imgs/6@2x.png") },
-        // { img: require("../../common/imgs/7@2x.png") },
-        // { img: require("../../common/imgs/8@2x.png") },
-      ];
+    async getheme() {
       await cumulativeTheme().then((res) => {
         console.log(res);
-        if (res.code == 200) {
+        if (res.code == 0) {
           // this.loading.close();
           let data = res.data;
           this.activityContent = data;
-          let reslist = [
-            {
-              label: this.$t("granddep"),
-              num: data.jl_today_number,
-              percent: data.wire_valid_bet_amount,
-              // percent: 2987.0,
-              total: 1500,
-            },
-            {
-              label: this.$t("getmeet"),
-              num: data.ai_today_number,
-              percent: data.sport_valid_bet_amount,
-              // percent: 2345.1,
-              total: 2800,
-            },
-            {
-              label: this.$t("opendrew"),
-              num: data.ae_today_number,
-              percent: data.really_valid_bet_amount,
-              // percent: 2864.98,
-              total: 3500,
-            },
-          ];
-          this.cersivelist = reslist;
-          this.$set(this.cersivelist, 0, reslist[0]);
-          this.$set(this.cersivelist, 1, reslist[1]);
-          this.$set(this.cersivelist, 2, reslist[2]);
+          let { week, sub_week } = data;
+          // 当有可领取且在领取时间内，显示领取弹窗
+          if (week.amount > 0) {
+            this.initdialog = true;
+          }
+          if (
+            !data.is_time_out &&
+            (sub_week.amount > 0 || activity.reward > 0)
+          ) {
+            this.initdialog = true;
+          }
 
-          let delock_count = data.delock_count; //已解锁
-          let unlock_count = data.unlock_count; //可解锁
-          let notlock_count = data.notlock_count; //未解锁
-          // let delock_count = 1; //已解锁
-          // let unlock_count = 4; //可解锁
-          // let notlock_count = 3; //未解锁
-
-          list.forEach((item, i) => {
-            let idx = i + 1;
-            item.type = 3;
-            if (idx <= delock_count) {
-              item.type = 1;
-            }
-            if (idx > delock_count && idx <= unlock_count + delock_count) {
-              item.type = 2;
-            }
-          });
-          this.imglist = list;
-          this.$set(this.imglist, 0, list[0]);
+          // 本周数据
+          this.ProcessThisWeek(week);
+          // 上周数据
+          this.ProcessSubWeek(sub_week);
         } else {
-          this.loading.close();
-          // this.showlogin = true;
+          this.$message({ type: "warning", message: res.message });
+          // this.loading.close();
         }
       });
+    },
+    // 处理本周数据
+    ProcessThisWeek(week) {
+      let weekimmon = [],
+        weekelect = [],
+        weekchess = [];
+      for (let key in week.data) {
+        if (key == 1) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            weekimmon.push(immon[idx]);
+          }
+        }
+        if (key == 3) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            weekelect.push(immon[idx]);
+          }
+        }
+        if (key == 5) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            weekchess.push(immon[idx]);
+          }
+        }
+      }
+      this.platList.forEach((val, i) => {
+        weekimmon.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+        weekelect.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+        weekchess.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+      });
+
+      this.weekimmon = weekimmon;
+      this.weekelect = weekelect;
+      this.weekchess = weekchess;
+
+      this.weekList = weekimmon;
+    },
+    // 处理上周数据
+    ProcessSubWeek(week) {
+      let weekimmon = [],
+        weekelect = [],
+        weekchess = [];
+      for (let key in week.data) {
+        if (key == 1) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            weekimmon.push(immon[idx]);
+          }
+        }
+        if (key == 3) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            weekelect.push(immon[idx]);
+          }
+        }
+        if (key == 5) {
+          let immon = week.data[key];
+          for (let idx in immon) {
+            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            weekchess.push(immon[idx]);
+          }
+        }
+      }
+      this.platList.forEach((val, i) => {
+        weekimmon.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+        weekelect.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+        weekchess.forEach((item, j) => {
+          if (i == j) {
+            item.url = val.url;
+          }
+        });
+      });
+
+      this.weeksubimmon = weekimmon;
+      this.weeksubelect = weekelect;
+      this.weeksubchess = weekchess;
+      console.log("this.weeksubimmon", this.weeksubimmon);
     },
     // 切换tab
     changetab(index) {
       this.action = index;
+      this.weekList = [];
+      let {
+        isWeek,
+        weekimmon,
+        weekelect,
+        weekchess,
+        weeksubimmon,
+        weeksubelect,
+        weeksubchess,
+      } = this;
+      console.log(index, isWeek);
+      if (index == 1) {
+        this.weekList = isWeek ? weekimmon : weeksubimmon;
+      }
+      if (index == 3) {
+        this.weekList = isWeek ? weekelect : weeksubelect;
+      }
+      if (index == 5) {
+        this.weekList = isWeek ? weekchess : weeksubchess;
+      }
+      console.log("weekList", this.weekList);
+    },
+
+    // 切换到上一周
+    changeSubWeek() {
+      this.showWeek = this.subWeek;
+      this.isWeek = false;
+      this.changetab(this.action);
+    },
+    // 切换到本周
+    changeNowWeek() {
+      this.showWeek = this.nowWeek;
+      this.isWeek = true;
+      this.changetab(this.action);
     },
     // 返回顶部
     backTop() {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     },
-    // 解锁
-    async deblock() {
-      if (!this.user_id) {
-        // this.showlogin = true;
+
+    getThisWeek(num, type) {
+      this.getType = type;
+      this.tipdialog = true;
+      this.moneyNum = num;
+    },
+    // 领取本周彩金
+    confirm() {
+      if (this.getType == 1) {
+        getNowWeekMoney().then((res) => {
+          if (res.code == 0) {
+            this.$message({ type: "success", message: "领取成功" });
+            this.getheme();
+            this.tipdialog = false;
+          } else {
+            this.$message({ type: "warning", message: res.message });
+            this.tipdialog = false;
+          }
+        });
+      } else if (this.getType == 2) {
+        getSubWeekMoney().then((res) => {
+          console.log(res);
+          if (res.code == 0) {
+            this.$message({ type: "success", message: "领取成功" });
+            this.getheme();
+            this.tipdialog = false;
+          } else {
+            this.$message({ type: "warning", message: res.message });
+            this.tipdialog = false;
+          }
+        });
+      } else if (this.getType == 3) {
+        getAwardCommen().then((res) => {
+          if (res.code == 0) {
+            this.$message({ type: "success", message: "领取成功" });
+            this.getheme();
+            this.tipdialog = false;
+          } else {
+            this.$message({ type: "warning", message: res.message });
+            this.tipdialog = false;
+          }
+        });
+      }
+    },
+
+    // 打开派发记录
+    getRecive(type) {
+      if (!this.username) {
+        this.dialogVisible = true;
         return;
       }
-      await getunlock({ user_id: this.user_id }).then((res) => {
-        if (res.code == 200) {
-          this.getheme(this.user_id);
-          this.$message({ type: "success", message: this.$t("unlocks") });
-        } else {
-          this.$message({ type: "warning", message: res.msg });
-        }
+      if (type == 1) {
+        this.getinfo();
+      }
+      if (type == 2) {
+        this.getTwoinfo();
+      }
+    },
+    // 主题一派发记录
+    async getinfo() {
+      await getReceiveList().then((res) => {
+        console.log(res);
+        this.onelistdata = res.data.data;
+        this.drawdialog = true;
       });
     },
-    // 领取彩金
-    getcollet: _debounce(function(type) {
-      this.checkcollet(type);
-    }, 500),
+    // 主题二派发记录
+    async getTwoinfo() {
+      await getThemeList().then((res) => {
+        console.log(res);
+        this.twolistdata = res.data.data;
+        this.themedialog = true;
+      });
+    },
 
-    async checkcollet(type) {
-      if (!this.user_id) {
-        // this.showlogin = true;
-        return;
+    /**
+     * 得到本周一、本周日、上周一、上周日的时间
+     */
+    getMondayAndSunday() {
+      var today = new Date();
+
+      //构建当前日期,格式：2022-08-22 00:00:00
+      var year = today.getFullYear(); //本年
+      var month = today.getMonth() + 1; //本月
+      var day = today.getDate(); //本日
+      var newDate = new Date(year + "-" + month + "-" + day + " 00:00:00"); //年月日拼接
+
+      var nowTime = newDate.getTime(); //当前的时间戳
+      var weekDay = newDate.getDay(); //当前星期 0.1.2.3.4.5.6 【0 = 周日】
+
+      var oneDayTime = 24 * 60 * 60 * 1000; //一天的总ms
+
+      // 当前星期减去天数，如今天为周五，则本周一为周五的时间戳减去4天的时间戳。但周日特殊，周一至周六是周几的到的weekDay就是几，但是周日的到的为0，需特殊处理
+      var thisWeekMondayTime = (1 - weekDay) * oneDayTime + nowTime; //本周一的时间戳
+      if (weekDay == 0) {
+        // weekDay = 0 为周日，此时本周一时间为周日减去6天的时间
+        thisWeekMondayTime = nowTime - 6 * oneDayTime;
       }
-      let {
-        lottery_money,
-        total_number,
-        plus_lottery_money,
-      } = this.activityContent;
-      let money = type == 1 ? lottery_money : plus_lottery_money;
-      if (!Number(money)) {
-        this.$message({ type: "warning", message: this.$t("noerr") });
-        return;
-      }
-      let params = {
-        user_id: this.user_id,
-        lottery_amount: type == 1 ? lottery_money : plus_lottery_money,
-        lottery_type: type == 1 ? "theme_one" : "theme_two",
-        finish_count: total_number,
+
+      var thisWeekSundayTime = thisWeekMondayTime + 6 * 24 * 60 * 60 * 1000; // 本周日
+
+      var lastWeekMondayTime = thisWeekMondayTime - 7 * oneDayTime; // 上周一
+      var lastWeekSundayTime = thisWeekMondayTime - oneDayTime; // 上周日
+
+      var res = {
+        thisWeekMonday: this.dateToYYYYMMDD(thisWeekMondayTime),
+        thisWeekSunday: this.dateToYYYYMMDD(thisWeekSundayTime),
+        lastWeekMonday: this.dateToYYYYMMDD(lastWeekMondayTime),
+        lastWeekSunday: this.dateToYYYYMMDD(lastWeekSundayTime),
       };
-      await getMoneyAdd(params).then((res) => {
-        if (res.code == 200) {
-          // this.darwdialog = true;
-          this.money = money;
-          this.getheme(this.user_id);
-        } else {
-          this.$message({ type: "warning", message: res.msg });
-        }
-      });
+      return res;
     },
-    // 关闭弹窗
-    cancelmodel() {
-      this.dialogVisible = false;
-    },
+    // 返回 yyyy-MM-dd 格式字符串
+    dateToYYYYMMDD(date) {
+      var time = new Date(date);
+      var y = time.getFullYear();
+      var m = time.getMonth() + 1;
+      m = m > 9 ? m : "0" + m;
+      var d = time.getDate();
+      d = d > 9 ? d : "0" + d;
 
-    // 打开领奖记录
-    getRecive() {
-      if (!this.user_id) {
-        // this.showlogin = true;
-        return;
-      }
-      this.getinfo(this.user_id);
+      return y + "/" + m + "/" + d;
     },
-    // 领取记录
-    async getinfo(uid) {
-      await getReceiveList({
-        user_id: uid,
-        page_size: 9999,
-      }).then((res) => {
-        this.listdata = res.data.list;
-        // this.dialogVisible = true;
-      });
-    },
-
     judgeBrowser() {
       let isenv = "";
       // 先判断是不是微信端打开的
@@ -498,27 +824,6 @@ export default {
         }
       }
       return isenv;
-    },
-
-    format_with_substring(number) {
-      // 数字转为字符串，并按照 .分割
-      let arr = (number + "").split(".");
-      let int = arr[0] + "";
-      let fraction = arr[1] || "";
-      // 多余的位数
-      let f = int.length % 3;
-      // 获取多余的位数，f可能是0， 即r可能是空字符串
-      let r = int.substring(0, f);
-      // 每三位添加','金额对应的字符
-      for (let i = 0; i < Math.floor(int.length / 3); i++) {
-        r += "," + int.substring(f + i * 3, f + (i + 1) * 3);
-      }
-      // 多余的位数，上面
-      if (f === 0) {
-        r = r.substring(1);
-      }
-      // 调整部分和小数部分拼接
-      return r + (!!fraction ? "." + fraction : "");
     },
   },
 };
@@ -606,9 +911,46 @@ r2(val){
       .datecheck{
         width:r2(453)
         height:r2(44)
-        background:red
+        line-height:r2(44)
+        background-image:url('../../common/image/cicle.png');
+        background-size:100%;
+        background-repeat:no-repeat;
         margin:0 auto
         margin-top:r2(80)
+        display:flex;
+        justify-content:space-between
+        .triangle{
+          margin-left:r2(10)
+          margin-top:r2(9)
+          height: 0px;
+          width: 0px;
+          border:r2(14) solid #000;
+          border-top-color: transparent;
+          border-bottom-color: transparent;
+          border-left-color:transparent ;
+          border-right-color: #faeb03;
+        }
+        .blue{
+          border-right-color: #92c6f1;
+        }
+        .riqi{
+          font-size: r2(20);
+	        color: #0749b1;
+        }
+        .trangle{
+          margin-right:r2(10)
+          margin-top:r2(9)
+          height: 0px;
+          width: 0px;
+          border:r2(14) solid #000;
+          border-top-color: transparent;
+          border-bottom-color: transparent;
+          border-left-color:#92c6f1;
+          border-right-color: transparent;
+        }
+        .yellow{
+          border-left-color:#faeb03;
+        }
       }
       .tabs{
         display:flex;
@@ -749,7 +1091,7 @@ r2(val){
             .get{
               width: r2(190);
               height: r2(61);
-              line-height: r2(61);
+              line-height: r2(0);
               background-image: linear-gradient(-8deg,#f4d736 0%,#fced00 51%,#a0eee6 100%), linear-gradient(#faeb03, #faeb03);
               box-shadow: r2(1) r2(2) r2(6) 0px rgba(0, 32, 59, 0.42);
               border-radius: r2(8);
@@ -759,11 +1101,15 @@ r2(val){
               font-size:r2(24)
               margin-left:r2(54)
             }
+            .is-disabled{
+              background:#f4d736!important;
+              opacity :0.6!important
+            }
             .draw{
                width: r2(190);
               height: r2(61);
               border-radius: r2(8);
-              line-height: r2(61);
+              line-height: r2(0);
               background:#f1fbfe
               text-align:center
               color: #0454a9;
@@ -775,7 +1121,7 @@ r2(val){
         .record{
           width: r2(190);
           height: r2(61);
-          line-height: r2(61);
+          line-height: r2(0);
           background-color: rgba(62,138,225,0.9);
           border-radius: r2(8);
           border: solid r2(1) #a0cef5;
@@ -868,7 +1214,7 @@ r2(val){
           .get{
             width: r2(190);
             height: r2(61);
-            line-height: r2(61);
+            line-height: r2(0);
             background-image: linear-gradient(-8deg,#f4d736 0%,#fced00 51%,#a0eee6 100%), linear-gradient(#faeb03, #faeb03);
             box-shadow: r2(1) r2(2) r2(6) 0px rgba(0, 32, 59, 0.42);
             border-radius: r2(8);
@@ -878,16 +1224,21 @@ r2(val){
             font-size:r2(24)
             margin-left:r2(54)
           }
+          .is-disabled{
+            background:#f4d736!important;
+            opacity :0.6!important
+          }
           .draw{
               width: r2(190);
             height: r2(61);
             border-radius: r2(8);
-            line-height: r2(61);
-            background:#f1fbfe
+            line-height: r2(0);
+            background:rgba(62,138,225,0.9)
             text-align:center
-            color: #0454a9;
+            color: #fff;
             font-size:r2(24)
             margin-left:r2(54)
+            border: solid r2(1) #a0cef5;
           }
         }
       }
@@ -904,8 +1255,17 @@ r2(val){
         text-align center
         display: block
       }
+      .ruletext{
+        font-size: r2(30)
+	      color: #ffffff;
+        font-weight:bold
+        width:r2(566);
+        margin:0 auto;
+        text-align center
+        margin-top:r2(-60)
+      }
       .content{
-        margin-top:r2(-22)
+        margin-top:r2(15)
         width:r2(1200)
         background-color: rgba(17,125,215,0.6);
         border-radius: r2(20);
@@ -950,5 +1310,279 @@ r2(val){
     }
   }
 
+}
+
+.model-box{
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  z-index:20;
+  top:0;
+  left:0
+  .modelveng{
+    width:100vw;
+    height:100vh;
+    position:absolute;
+    top:0;
+    left:0
+    background:rgba(0,0,0,0.5)
+  }
+  .modeltable{
+    position:absolute;
+    width:100%;
+    height:r2(425);
+    z-index:22;
+    // left:20%
+    top:20%;
+    .bkg{
+      position:relative;
+      margin:0 auto;
+      width:r2(554);
+      height:r2(425);
+      background-image:url('../../common/image/dialog1.png');
+      background-size:100%;
+      background-repeat:no-repeat;
+      .modeltitle{
+        position:absolute
+        font-size: r2(36);
+        line-height: r2(15);
+        color: #ffffff;
+        box-shadow: r2(1) r2(2) r2(10) 0px rgba(0, 150, 234, 0.75);
+        top:r2(206)
+        left:r2(140)
+      }
+      .modelcontent{
+        position:absolute
+        font-size: r2(18);
+        line-height: r2(30);
+        color: #ffffff;
+        width:r2(452);
+        text-align center
+        top:r2(289)
+        left:r2(51)
+      }
+      .dele{
+        position:absolute;
+        top:r2(178)
+        left:r2(520)
+        width:r2(38);
+        height:auto;
+        // left:50%;
+        // margin-left:r2(-30)
+      }
+    }
+  }
+}
+
+
+.back_box{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:22;
+  .post{
+    width: r2(378);
+    height: r2(220);
+    background:rgba(225,225,225,0.33);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius: r2(10);
+    .cbg{
+      width: r2(357);
+	    height: r2(199);
+      background-image: linear-gradient(-8deg,#0a6fd7 0%,#1e79e9 0%, #3182fb 0%,#05bbf7 100%),linear-gradient(#ffffff, #ffffff);
+      border-radius: r2(10);
+    }
+    .modeltitle{
+      font-size: r2(24);
+      line-height: r2(15);
+      color: #ebfa03;
+      box-shadow: r2(1) r2(2) r2(10) 0px rgba(0, 150, 234, 0.75);
+      width: r2(348);
+      text-align center
+      margin-top:r2(30)
+    }
+    .modelcontent{
+      font-size: r2(18);
+      line-height: r2(30);
+      color: #ffffff;
+      width:r2(348);
+      text-align center
+      margin-top:r2(10)
+    }
+    .btns{
+      padding:0 r2(30)
+      margin-top:r2(20)
+      display:flex;
+      justify-content:space-between
+      div{
+        width: r2(120);
+        height: r2(45);
+        line-height: r2(45);
+        text-align center
+        background-image: linear-gradient(1deg, #3182fb 0%, #8ebbfb 0%,#ebf3fa 0%, #67d7fc 100%), linear-gradient(#faeb03, #faeb03);
+        box-shadow: r2(1) r2(2) r2(6) 0px rgba(1, 34, 62, 0.42);
+        border-radius: r2(8);
+        color:#0454a9
+      }
+      .cans{
+        background:#fff;
+      }
+    }
+    .center{
+      justify-content:center
+    }
+  }
+}
+
+.login_box{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:22;
+  .post{
+    width:r2(955);
+    height:auto
+    position:relative;
+    text-align center
+    .close{
+      width:r2(45)
+      height:auto
+      position:absolute;
+      right:0;
+      top:r2(-90)
+    }
+    .back{
+      position:absolute;
+      width:r2(566);
+      height:auto;
+      top:r2(-105)
+      left: r2(194.5)
+    }
+    .title{
+      position:absolute;
+      font-size: r2(30);
+	    color: #ebfa03;
+      width:r2(955);
+      text-align center
+      top:r2(-40)
+      letter-spacing: r2(5);
+    }
+    .container{
+      background-color: rgba(255,255,255,0.33);
+      border-radius: r2(10);
+      width: r2(955);
+      min-height: r2(582);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      .consbox{
+        width: r2(930);
+        min-height: r2(555);
+        background-image: linear-gradient(-8deg,#0a6fd7 0%, #1e79e9 0%,#3182fb 0%, #05bbf7 100%), linear-gradient(#ffffff, #ffffff);
+        border-radius:r2(10);
+        .table{
+          width:100%;
+          // height:r2(600);
+          color:#fff;
+          overflow:auto
+          padding:r2(20)
+          .header{
+            display:flex;
+            justify-content space-between
+            height:r2(44);
+            line-height:r2(44);
+            margin-bottom:r2(1)
+            div{
+              width:24.8%;
+              text-align:center;
+              font-size:r2(20);
+              background-color: rgba(3,45,91,0.18);
+              margin-right:r2(1)
+            }
+            .one{
+              width:r2(106)
+            }
+            .two{
+              width:r2(226)
+            }
+            .three{
+              width:r2(196)
+            }
+            .four{
+              width:r2(197)
+            }
+            .five{
+              width:r2(160)
+            }
+          }
+          .body{
+            display:flex;
+            justify-content space-between
+            height:r2(44);
+            line-height:r2(44);
+            margin-bottom:r2(1)
+            div{
+              width:24.8%;
+              text-align:center;
+              font-size:r2(18);
+              background-color: rgba(3,45,91,0.18);
+              margin-right:r2(1)
+            }
+            .one{
+              width:r2(106)
+            }
+            .two{
+              width:r2(226)
+            }
+            .three{
+              width:r2(196)
+            }
+            .four{
+              width:r2(197)
+            }
+            .five{
+              width:r2(160)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 定义一个闪烁动画 */
+@keyframes blink {
+0% {
+opacity: 1;
+// width: r2(190);
+// height: r2(61);
+}
+50% {
+opacity: 0.3;
+// width: r2(220);
+// height: r2(81);
+}
+100% {
+opacity: 1;
+// width: r2(190);
+// height: r2(61);
+}
+}
+/* 定义按钮样式 */
+.twink {
+  animation: blink 0.5s infinite; /* 添加闪烁动画效果 */
+}
+/* 鼠标悬浮时停止闪烁 */
+.twink:hover {
+  animation-play-state: paused;
+  opacity: 1;
 }
 </style>

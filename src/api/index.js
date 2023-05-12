@@ -1,23 +1,4 @@
 import service from "./service";
-// 领取记录
-export const getReceiveList = (params) => {
-  return service({
-    method: "get",
-    url: "/api/new_year/receive/list",
-    params: {
-      ...params,
-    },
-  });
-};
-
-// 领取彩金
-export const getMoneyAdd = (data) => {
-  return service({
-    method: "post",
-    url: "/api/new_year/receive/add",
-    data,
-  });
-};
 
 // 活动主题
 export const cumulativeTheme = () => {
@@ -26,12 +7,40 @@ export const cumulativeTheme = () => {
     url: "/api/index",
   });
 };
+// 主题一派发记录
+export const getReceiveList = () => {
+  return service({
+    method: "get",
+    url: "/api/list",
+  });
+};
+// 主题二派发记录
+export const getThemeList = () => {
+  return service({
+    method: "get",
+    url: "/api/activity_list",
+  });
+};
 
-// 解锁
-export const getunlock = (data) => {
+// 领取本周
+export const getNowWeekMoney = () => {
   return service({
     method: "post",
-    url: "/api/new_year/receive/unlock",
-    data,
+    url: "/api/draw",
+  });
+};
+
+// 领取上周
+export const getSubWeekMoney = () => {
+  return service({
+    method: "post",
+    url: "/api/draw_sub_week",
+  });
+};
+// 领取活动嘉奖
+export const getAwardCommen = () => {
+  return service({
+    method: "post",
+    url: "/api/draw_activity",
   });
 };
