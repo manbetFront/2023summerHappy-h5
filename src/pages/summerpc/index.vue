@@ -66,7 +66,11 @@
                   :text-inside="true"
                   color="#a9e9fb"
                   :stroke-width="20"
-                  :percentage="(item.effective_betting / 10) * 100"
+                  :percentage="
+                    item.effective_betting >= 10
+                      ? 100
+                      : (item.effective_betting / 10) * 100
+                  "
                 ></Progress>
               </div>
               <div class="tthree">38元</div>
