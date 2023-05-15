@@ -53,7 +53,7 @@
             <div class="hone">指定平台任务</div>
             <div class="htwo">累积有效投注</div>
             <div class="hthree">奖励</div>
-            <div class="hfour">任务进度</div>
+            <div class="hfour">任务状态</div>
           </div>
           <div class="tbody">
             <div class="bodyrow" v-for="(item, i) in weekList" :key="item.name">
@@ -75,9 +75,9 @@
               </div>
               <div class="tthree">38元</div>
               <div class="tfour">
-                <div class="status1" v-if="item.status == 0">立即投注</div>
-                <div v-if="item.status == 2">已完成</div>
-                <div v-if="item.status == 3">已过期</div>
+                <div v-if="item.status == -1">未投注</div>
+                <div v-if="item.status == 0">进行中</div>
+                <div v-if="item.status > 0">已完成</div>
               </div>
             </div>
           </div>
@@ -528,7 +528,7 @@ export default {
           }
           if (
             !data.is_time_out &&
-            (sub_week.amount > 0 || activity.reward > 0)
+            (sub_week.amount > 0 || data.activity.reward > 0)
           ) {
             this.initdialog = true;
           }
@@ -601,21 +601,21 @@ export default {
         if (key == 1) {
           let immon = week.data[key];
           for (let idx in immon) {
-            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            // immon[idx].platform_name = "11" + immon[idx].platform_name;
             weekimmon.push(immon[idx]);
           }
         }
         if (key == 3) {
           let immon = week.data[key];
           for (let idx in immon) {
-            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            // immon[idx].platform_name = "11" + immon[idx].platform_name;
             weekelect.push(immon[idx]);
           }
         }
         if (key == 5) {
           let immon = week.data[key];
           for (let idx in immon) {
-            immon[idx].platform_name = "11" + immon[idx].platform_name;
+            // immon[idx].platform_name = "11" + immon[idx].platform_name;
             weekchess.push(immon[idx]);
           }
         }
@@ -981,6 +981,7 @@ r2(val){
       }
       .table{
         width:r2(1049)
+        min-height:r2(820)
         margin:0 auto
         margin-top:r2(20)
         .theader{
