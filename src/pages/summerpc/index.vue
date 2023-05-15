@@ -373,7 +373,8 @@ export default {
         { name: "电子平台", index: 5 },
       ],
       action: 1,
-      platList: [
+      // 真人
+      peopleimgList: [
         {
           url: require("../../common/image/peopleicon/bbin真人.png"),
           // name: "BBIN娱乐",
@@ -383,74 +384,63 @@ export default {
         },
         {
           url: require("../../common/image/peopleicon/万博娱乐.png"),
-          // name: "万博娱乐",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ae真人.png"),
-          // name: "AE性感百家",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ag娱乐.png"),
-          // name: "AG娱乐",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/完美视讯.png"),
-          // name: "完美视讯",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/欧博娱乐.png"),
-          // name: "鸥博娱乐",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/ogplus.png"),
-          // name: "OG Plus",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/evo真人.png"),
-          // name: "EVO真人",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/万博实地厅.png"),
-          // name: "万博实地厅",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/cq9真人.png"),
-          // name: "CQ9真人",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
         {
           url: require("../../common/image/peopleicon/bg娱乐.png"),
-          // name: "BG娱乐",
-          // percent: 23,
-          // amount: "38元",
-          // status: 1,
         },
+      ],
+      // 棋牌
+      chessimgList: [
+        {
+          url: require("../../common/image/chessicon/双赢棋牌.png"),
+        },
+        {
+          url: require("../../common/image/chessicon/万博幸运棋牌.png"),
+        },
+        {
+          url: require("../../common/image/chessicon/万博棋牌.png"),
+        },
+        {
+          url: require("../../common/image/chessicon/万博欢乐棋牌.png"),
+        },
+      ],
+      // 电子
+      electimgList: [
+        { url: require("../../common/image/electicon/sg电子.png") },
+        { url: require("../../common/image/electicon/AG游戏厅.png") },
+        { url: require("../../common/image/electicon/mg游戏.png") },
+        { url: require("../../common/image/electicon/pg游戏.png") },
+        { url: require("../../common/image/electicon/pp游戏.png") },
+        { url: require("../../common/image/electicon/万博电游.png") },
+        { url: require("../../common/image/electicon/jdb游戏.png") },
+        { url: require("../../common/image/electicon/cq9.png") },
+        { url: require("../../common/image/electicon/icg游戏.png") },
+        { url: require("../../common/image/electicon/fc.png") },
+        { url: require("../../common/image/electicon/万博hw.png") },
       ],
       taskList: [
         { num: "≥5", amount: "20" },
@@ -558,27 +548,31 @@ export default {
         if (key == 3) {
           let immon = week.data[key];
           for (let idx in immon) {
-            weekelect.push(immon[idx]);
+            weekchess.push(immon[idx]);
           }
         }
         if (key == 5) {
           let immon = week.data[key];
           for (let idx in immon) {
-            weekchess.push(immon[idx]);
+            weekelect.push(immon[idx]);
           }
         }
       }
-      this.platList.forEach((val, i) => {
+      this.peopleimgList.forEach((val, i) => {
         weekimmon.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
           }
         });
+      });
+      this.chessimgList.forEach((val, i) => {
         weekelect.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
           }
         });
+      });
+      this.electimgList.forEach((val, i) => {
         weekchess.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
@@ -609,28 +603,32 @@ export default {
           let immon = week.data[key];
           for (let idx in immon) {
             // immon[idx].platform_name = "11" + immon[idx].platform_name;
-            weekelect.push(immon[idx]);
+            weekchess.push(immon[idx]);
           }
         }
         if (key == 5) {
           let immon = week.data[key];
           for (let idx in immon) {
             // immon[idx].platform_name = "11" + immon[idx].platform_name;
-            weekchess.push(immon[idx]);
+            weekelect.push(immon[idx]);
           }
         }
       }
-      this.platList.forEach((val, i) => {
+      this.peopleimgList.forEach((val, i) => {
         weekimmon.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
           }
         });
+      });
+      this.chessimgList.forEach((val, i) => {
         weekelect.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
           }
         });
+      });
+      this.electimgList.forEach((val, i) => {
         weekchess.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
