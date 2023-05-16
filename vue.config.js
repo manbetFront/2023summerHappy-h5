@@ -20,7 +20,7 @@ module.exports = {
     open: process.platform === "darwin",
     host: "0.0.0.0",
     port: 8000,
-    hotOnly: false,
+    hotOnly: true,
     proxy: {
       "/api": {
         target: "https://api.vpemjjvb.com",
