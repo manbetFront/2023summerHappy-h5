@@ -29,18 +29,18 @@
         </div>
         <div class="datecheck">
           <div
-            :class="isWeek ? 'triangle' : 'triangle blue'"
+            :class="isWeek ? 'triangle point' : 'triangle blue point'"
             @click="changeSubWeek"
           ></div>
           <div class="riqi">自然周：{{ showWeek }}</div>
           <div
-            :class="isWeek ? 'trangle' : 'trangle yellow'"
+            :class="isWeek ? 'trangle point' : 'trangle yellow point'"
             @click="changeNowWeek"
           ></div>
         </div>
         <div class="tabs">
           <div
-            :class="action == item.index ? 'tab active' : 'tab'"
+            :class="action == item.index ? 'tab active point' : 'tab point'"
             v-for="item in checkList"
             @click="changetab(item.index)"
           >
@@ -67,16 +67,18 @@
                   color="#a9e9fb"
                   :stroke-width="20"
                   :percentage="
-                    item.effective_betting >= 10000
+                    item.effective_betting >= item.amount
                       ? 100
-                      : (item.effective_betting / 10000) * 100
+                      : (item.effective_betting / item.amount) * 100
                   "
                 ></Progress>
                 <div class="newnum">
-                  {{ format_with_substring(item.effective_betting) }}元/10,000元
+                  {{ format_with_substring(item.effective_betting) }}元/{{
+                    format_with_substring(item.amount)
+                  }}元
                 </div>
               </div>
-              <div class="tthree">38元</div>
+              <div class="tthree">{{ item.award }}元</div>
               <div class="tfour">
                 <div v-if="item.status == -1">未投注</div>
                 <div v-if="item.status == 0">进行中</div>
@@ -192,7 +194,7 @@
             4.本优惠所需投注不与其他投注活动共享，可与返水活动共享。<br />
             5.本优惠仅对已结算并产生输赢结果的投注流水进行计算。所有拒绝投注，无效投注，打平，任何出现对押情况的投注（例：于百家乐同时下注庄家及闲家，百家乐当中开和退还本金）将不予计算。<br />
           </span>
-          <div class="mr">
+          <div class="mr point">
             本优惠遵循ManBetX万博<span @click="localgo"
               >【一般优惠规则与条款】</span
             >。
@@ -200,7 +202,7 @@
         </div>
       </div>
       <div class="btns">
-        <div @click="backTop">返回顶部</div>
+        <div class="point" @click="backTop">返回顶部</div>
       </div>
     </div>
 
@@ -231,8 +233,8 @@
               您将领彩金{{ moneyNum }}元，确认后无法取消，详情可至派发记录查阅
             </div>
             <div class="btns">
-              <div @click="confirm">确认</div>
-              <div class="cans" @click="tipdialog = false">取消</div>
+              <div class="point" @click="confirm">确认</div>
+              <div class="cans point" @click="tipdialog = false">取消</div>
             </div>
           </div>
         </div>
@@ -248,7 +250,7 @@
               亲，您有彩金未领取，请尽快领哦~
             </div>
             <div class="btns center">
-              <div @click="initdialog = false">确认</div>
+              <div class="point" @click="initdialog = false">确认</div>
             </div>
           </div>
         </div>
@@ -582,6 +584,8 @@ export default {
         weekimmon.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 20000;
+            item.award = 38;
           }
         });
       });
@@ -589,6 +593,8 @@ export default {
         weekelect.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 15000;
+            item.award = 28;
           }
         });
       });
@@ -596,6 +602,8 @@ export default {
         weekchess.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 10000;
+            item.award = 18;
           }
         });
       });
@@ -638,6 +646,8 @@ export default {
         weekimmon.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 20000;
+            item.award = 38;
           }
         });
       });
@@ -645,6 +655,8 @@ export default {
         weekelect.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 15000;
+            item.award = 28;
           }
         });
       });
@@ -652,6 +664,8 @@ export default {
         weekchess.forEach((item, j) => {
           if (i == j) {
             item.url = val.url;
+            item.amount = 10000;
+            item.award = 18;
           }
         });
       });
@@ -1594,6 +1608,10 @@ r2(val){
       }
     }
   }
+}
+
+.point{
+  cursor:pointer;
 }
 
 /* 定义一个闪烁动画 */
