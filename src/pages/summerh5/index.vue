@@ -74,6 +74,9 @@
                       : (item.effective_betting / 10) * 100
                   "
                 ></Progress>
+                <div class="newnum">
+                  {{ format_with_substring(item.effective_betting) }}元/10,000元
+                </div>
               </div>
               <div class="tthree">38元</div>
               <div class="tfour">
@@ -89,7 +92,9 @@
           <div class="mountbox">
             <div class="able">
               <div class="avai">
-                上周可领取彩金：{{ activityContent.sub_week.amount }}元
+                上周可领取彩金：{{
+                  format_with_substring(activityContent.sub_week.amount)
+                }}元
               </div>
               <Button
                 @click="getThisWeek(activityContent.sub_week.amount, 2)"
@@ -108,7 +113,9 @@
             </div>
             <div class="able">
               <div class="avai">
-                本周可领取彩金：{{ activityContent.week.amount }}元
+                本周可领取彩金：{{
+                  format_with_substring(activityContent.week.amount)
+                }}元
               </div>
               <Button
                 @click="getThisWeek(activityContent.week.amount, 1)"
@@ -161,7 +168,9 @@
           </div>
           <div class="able">
             <div class="avai">
-              可领取额外活跃嘉奖：{{ activityContent.activity.reward }}元
+              可领取额外活跃嘉奖：{{
+                format_with_substring(activityContent.activity.reward)
+              }}元
             </div>
             <Button class="draw" size="mini" @click="getRecive(2)"
               >领取记录</Button
@@ -186,7 +195,9 @@
             5.本优惠仅对已结算并产生输赢结果的投注流水进行计算。所有拒绝投注，无效投注，打平，任何出现对押情况的投注（例：于百家乐同时下注庄家及闲家，百家乐当中开和退还本金）将不予计算。<br />
           </p>
           <div class="mr">
-            本优惠遵循ManBetX万博<span>【一般优惠规则与条款】</span>。
+            本优惠遵循ManBetX万博<span @click="localgo"
+              >【一般优惠规则与条款】</span
+            >。
           </div>
         </div>
       </div>
@@ -281,11 +292,11 @@
                     <div class="four">{{ item.amount }}</div>
                     <div class="five">
                       {{
-                        status == 1
-                          ? "待领取"
-                          : status == 2
-                          ? "已领取"
-                          : "已过期"
+                        item.status == -1
+                          ? "未投注"
+                          : item.status == 0
+                          ? "进行中"
+                          : "已完成"
                       }}
                     </div>
                   </div>
@@ -326,11 +337,11 @@
                     </div>
                     <div>
                       {{
-                        status == 1
-                          ? "待领取"
-                          : status == 2
-                          ? "已领取"
-                          : "已过期"
+                        item.status == -1
+                          ? "未投注"
+                          : item.status == 0
+                          ? "进行中"
+                          : "已完成"
                       }}
                     </div>
                   </div>
@@ -353,6 +364,7 @@ Vue.use(Progress)
   .use(Loading);
 import { _debounce } from "@/utils";
 import { mapGetters } from "vuex";
+import { format_with_substring } from "@/common/js/utils";
 
 import {
   cumulativeTheme,
@@ -505,6 +517,10 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
   },
   methods: {
+    format_with_substring,
+    localgo() {
+      window.open("https://jc.8manbet.net/mobile/#/?activityId=undefined");
+    },
     // 获取页面信息
     async getheme() {
       await cumulativeTheme().then((res) => {
@@ -1059,6 +1075,7 @@ r2(designpx )
             }
             .ttwo{
               width:r2(230)
+              position:relative
               .el-progress{
                 margin:0 auto
                 width:r2(210)
@@ -1069,8 +1086,18 @@ r2(designpx )
                 height:r2(32) !important
               }
               /deep/ .el-progress-bar__innerText{
+                display:none
                 color:#0454a9
                 font-size:r2(20)
+              }
+              .newnum{
+                width:r2(210)
+                text-align center
+                top:0
+                left:r2(10)
+                color:#0454a9
+                font-size:r2(18)
+                position:absolute;
               }
             }
             .tthree{
