@@ -527,6 +527,10 @@ export default {
         console.log(res);
         if (res.code == 0) {
           // this.loading.close();
+          if (!res.data) {
+            this.dialogVisible = true;
+            return;
+          }
           let data = res.data;
           this.activityContent = data;
           let { week, sub_week } = data;
