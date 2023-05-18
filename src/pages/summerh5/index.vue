@@ -294,11 +294,13 @@
                     <div class="four">{{ item.amount }}</div>
                     <div class="five">
                       {{
-                        item.status == -1
-                          ? "未投注"
+                        item.status == 1
+                          ? "待领取"
                           : item.status == 0
                           ? "进行中"
-                          : "已完成"
+                          : item.status == 2
+                          ? "已领取"
+                          : "已过期"
                       }}
                     </div>
                   </div>
@@ -325,25 +327,27 @@
             <div class="consbox">
               <div class="table">
                 <div class="header">
-                  <div>序号</div>
-                  <div>额外活跃嘉奖彩金</div>
-                  <div>领取时间</div>
-                  <div>状态</div>
+                  <div class="pone">序号</div>
+                  <div class="ptwo">额外活跃嘉奖彩金</div>
+                  <div class="pthree">领取时间</div>
+                  <div class="pfour">状态</div>
                 </div>
                 <div>
                   <div class="body" v-for="(item, i) in twolistdata" :key="i">
-                    <div>{{ i + 1 }}</div>
-                    <div>{{ item.amount }}</div>
-                    <div>
+                    <div class="pone">{{ i + 1 }}</div>
+                    <div class="ptwo">{{ item.amount }}</div>
+                    <div class="pthree">
                       {{ item.draw_time ? item.draw_time : "-" }}
                     </div>
-                    <div>
+                    <div class="pfour">
                       {{
-                        item.status == -1
-                          ? "未投注"
+                        item.status == 1
+                          ? "待领取"
                           : item.status == 0
                           ? "进行中"
-                          : "已完成"
+                          : item.status == 2
+                          ? "已领取"
+                          : "已过期"
                       }}
                     </div>
                   </div>
@@ -464,9 +468,9 @@ export default {
         { num: "≥15", amount: "100" },
       ],
       activityContent: {
-        sub_week: { amount: "" },
-        week: { amount: "" },
-        activity: { count: "" },
+        sub_week: { amount: 0 },
+        week: { amount: 0 },
+        activity: { count: 0, reward: 0 },
         is_time_out: "",
       },
       weekList: [],
@@ -1203,7 +1207,7 @@ r2(designpx )
       background-repeat:no-repeat;
       margin-top:r2(76)
       .twotitle{
-        width:r2(606)
+        width:r2(620)
         font-size: r2(20);
         line-height: r2(25);
         color: #EBFA03;
@@ -1224,7 +1228,7 @@ r2(designpx )
             line-height:r2(50)
           }
           .hone{
-            width:r2(256)
+            width:r2(270)
             margin-right:r2(2)
           }
           .htwo{
@@ -1245,7 +1249,7 @@ r2(designpx )
               margin-right:r2(2)
             }
             .tone{
-              width:r2(256);
+              width:r2(270);
               margin-right:r2(2)
             }
             .ttwo{
@@ -1617,6 +1621,19 @@ r2(designpx )
             .five{
               width:r2(160)
             }
+          }
+
+          .pone{
+            width:11% !important;
+          }
+          .ptwo{
+            width:35% !important
+          }
+          .pthree{
+            width:35% !important
+          }
+          .pfour{
+            width:18% !important
           }
         }
       }
