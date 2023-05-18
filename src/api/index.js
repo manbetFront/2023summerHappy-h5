@@ -8,17 +8,19 @@ export const cumulativeTheme = () => {
   });
 };
 // 主题一派发记录
-export const getReceiveList = () => {
+export const getReceiveList = (params) => {
   return service({
     method: "get",
     url: "/api/list",
+    params: { ...params },
   });
 };
 // 主题二派发记录
-export const getThemeList = () => {
+export const getThemeList = (params) => {
   return service({
     method: "get",
     url: "/api/activity_list",
+    params: { ...params },
   });
 };
 

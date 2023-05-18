@@ -304,6 +304,12 @@
                   </div>
                 </div>
               </div>
+
+              <Pagination
+                layout="prev, pager, next"
+                :total="onetotal"
+                @current-change="handleSizeChange"
+              ></Pagination>
             </div>
           </div>
         </div>
@@ -351,6 +357,12 @@
                   </div>
                 </div>
               </div>
+
+              <Pagination
+                layout="prev, pager, next"
+                :total="twototal"
+                @current-change="handleCurrentChange"
+              ></Pagination>
             </div>
           </div>
         </div>
@@ -361,11 +373,19 @@
 
 <script>
 import Vue from "vue";
-import { Progress, Dialog, Table, Loading, Button } from "element-ui";
+import {
+  Progress,
+  Dialog,
+  Table,
+  Loading,
+  Button,
+  Pagination,
+} from "element-ui";
 Vue.use(Progress)
   .use(Dialog)
   .use(Table)
-  .use(Loading);
+  .use(Loading)
+  .use(Pagination);
 import { _debounce } from "@/utils";
 import { mapGetters } from "vuex";
 import { format_with_substring } from "@/common/js/utils";
@@ -382,6 +402,7 @@ export default {
   components: {
     Progress: Progress,
     Button,
+    Pagination: Pagination,
   },
   data() {
     return {
@@ -466,9 +487,9 @@ export default {
         { num: "≥15", amount: "100" },
       ],
       activityContent: {
-        sub_week: { amount: "" },
-        week: { amount: "" },
-        activity: { count: "" },
+        sub_week: { amount: 0 },
+        week: { amount: 0 },
+        activity: { count: 0, reward: 0 },
         is_time_out: "",
       },
       weekList: [],
@@ -494,6 +515,17 @@ export default {
 
       moneyNum: "",
       getType: 1,
+
+      onesearch: {
+        page: 1,
+        page_size: 10,
+      },
+      twosearch: {
+        page: 1,
+        page_size: 10,
+      },
+      onetotal: 0,
+      twototal: 0,
     };
   },
   computed: {
@@ -770,6 +802,18 @@ export default {
         });
       }
     },
+    // 主题一分页
+    handleSizeChange(val) {
+      console.log(111, val);
+      this.onesearch.page = val;
+      this.getinfo();
+    },
+    //  主题二分页
+    handleCurrentChange(val) {
+      console.log(222, val);
+      this.twosearch.page = val;
+      this.getTwoinfo();
+    },
 
     // 打开派发记录
     getRecive(type) {
@@ -779,25 +823,26 @@ export default {
       }
       if (type == 1) {
         this.getinfo();
+        this.drawdialog = true;
       }
       if (type == 2) {
         this.getTwoinfo();
+        this.themedialog = true;
       }
     },
     // 主题一派发记录
     async getinfo() {
-      await getReceiveList().then((res) => {
-        console.log(res);
+      await getReceiveList(this.onesearch).then((res) => {
         this.onelistdata = res.data.data;
-        this.drawdialog = true;
+        this.onetotal = res.data.total;
       });
     },
     // 主题二派发记录
     async getTwoinfo() {
-      await getThemeList().then((res) => {
+      await getThemeList(this.twosearch).then((res) => {
         console.log(res);
         this.twolistdata = res.data.data;
-        this.themedialog = true;
+        this.twototal = res.data.total;
       });
     },
 
@@ -1608,6 +1653,32 @@ r2(val){
               width:r2(160)
             }
           }
+        }
+
+        .el-pagination{
+          color:#fff !important;
+        }
+        /deep/ .el-pagination button:disabled{
+          background:transparent !important
+          color:yellow
+        }
+
+        /deep/ .el-pager li.active{
+          color:yellow
+          font-weight:bold
+        }
+
+        /deep/ .btn-next{
+          background-color:transparent !important
+          color:#fff;
+        }
+        /deep/ .btn-prev{
+          background-color:transparent !important
+          color:#fff;
+        }
+        /deep/ .el-pager li{
+          background:transparent !important
+          color:#fff;
         }
       }
     }
