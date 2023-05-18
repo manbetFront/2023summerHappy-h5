@@ -53,7 +53,7 @@
         <div class="table">
           <div class="theader">
             <div class="hone">指定平台任务</div>
-            <div class="htwo">累积有效投注</div>
+            <div class="htwo">累计有效投注</div>
             <div class="hthree">奖励</div>
             <div class="hfour">任务状态</div>
           </div>
@@ -275,7 +275,7 @@
               <div class="table">
                 <div class="header">
                   <div class="one">序号</div>
-                  <div class="two">完成任务平台名称</div>
+                  <div class="two">平台名称</div>
                   <div class="three">领取时间</div>
                   <div class="four">金额</div>
                   <div class="five">状态</div>
