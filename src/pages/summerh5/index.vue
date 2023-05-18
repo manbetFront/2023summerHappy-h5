@@ -196,7 +196,7 @@
             4.本优惠所需投注不与其他投注活动共享，可与返水活动共享。<br />
             5.本优惠仅对已结算并产生输赢结果的投注流水进行计算。所有拒绝投注，无效投注，打平，任何出现对押情况的投注（例：于百家乐同时下注庄家及闲家，百家乐当中开和退还本金）将不予计算。<br />
           </p>
-          <div class="mr point">
+          <div class="mr">
             本优惠遵循ManBetX万博<span @click="localgo"
               >【一般优惠规则与条款】</span
             >。
@@ -1565,13 +1565,13 @@ r2(designpx )
             justify-content space-between
             height:r2(44);
             line-height:r2(44);
-            margin-bottom:r2(1)
+            margin-bottom:r2(2)
             div{
               width:24.8%;
               text-align:center;
               font-size:r2(20);
               background-color: rgba(3,45,91,0.18);
-              margin-right:r2(1)
+              margin-right:r2(2)
             }
             .one{
               width:r2(85)
@@ -1594,13 +1594,13 @@ r2(designpx )
             justify-content space-between
             height:r2(44);
             line-height:r2(44);
-            margin-bottom:r2(1)
+            margin-bottom:r2(2)
             div{
               width:24.8%;
               text-align:center;
               font-size:r2(18);
               background-color: rgba(3,45,91,0.18);
-              margin-right:r2(1)
+              margin-right:r2(2)
             }
             .one{
               width:r2(85)

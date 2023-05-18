@@ -194,8 +194,8 @@
             4.本优惠所需投注不与其他投注活动共享，可与返水活动共享。<br />
             5.本优惠仅对已结算并产生输赢结果的投注流水进行计算。所有拒绝投注，无效投注，打平，任何出现对押情况的投注（例：于百家乐同时下注庄家及闲家，百家乐当中开和退还本金）将不予计算。<br />
           </span>
-          <div class="mr point">
-            本优惠遵循ManBetX万博<span @click="localgo"
+          <div class="mr">
+            本优惠遵循ManBetX万博<span class="point" @click="localgo"
               >【一般优惠规则与条款】</span
             >。
           </div>
@@ -292,11 +292,13 @@
                     <div class="four">{{ item.amount }}</div>
                     <div class="five">
                       {{
-                        item.status == -1
-                          ? "未投注"
+                        item.status == 1
+                          ? "待领取"
                           : item.status == 0
                           ? "进行中"
-                          : "已完成"
+                          : item.status == 2
+                          ? "已领取"
+                          : "已过期"
                       }}
                     </div>
                   </div>
@@ -337,11 +339,13 @@
                     </div>
                     <div>
                       {{
-                        item.status == -1
-                          ? "未投注"
+                        item.status == 1
+                          ? "待领取"
                           : item.status == 0
                           ? "进行中"
-                          : "已完成"
+                          : item.status == 2
+                          ? "已领取"
+                          : "已过期"
                       }}
                     </div>
                   </div>
@@ -1551,7 +1555,7 @@ r2(val){
             justify-content space-between
             height:r2(44);
             line-height:r2(44);
-            margin-bottom:r2(1)
+            margin-bottom:r2(2)
             div{
               width:24.8%;
               text-align:center;
@@ -1580,7 +1584,7 @@ r2(val){
             justify-content space-between
             height:r2(44);
             line-height:r2(44);
-            margin-bottom:r2(1)
+            margin-bottom:r2(2)
             div{
               width:24.8%;
               text-align:center;
