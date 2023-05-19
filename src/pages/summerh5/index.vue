@@ -1268,7 +1268,7 @@ r2(designpx )
           display:flex
           div{
             text-align:center
-            font-size:r2(22)
+            font-size:r2(20)
             color: #ffffff;
             height:r2(50);
             line-height:r2(50)
