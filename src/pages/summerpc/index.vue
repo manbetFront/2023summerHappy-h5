@@ -571,9 +571,9 @@ export default {
           this.activityContent = data;
           let { week, sub_week } = data;
           // 当有可领取且在领取时间内，显示领取弹窗
-          if (week.amount > 0) {
-            this.initdialog = true;
-          }
+          // if (week.amount > 0) {
+          //   this.initdialog = true;
+          // }
           if (
             !data.is_time_out &&
             (sub_week.amount > 0 || data.activity.reward > 0)
@@ -1211,11 +1211,13 @@ r2(val){
               height: r2(61);
               border-radius: r2(8);
               line-height: r2(0);
-              background:#f1fbfe
+              // background:#f1fbfe
               text-align:center
               color: #0454a9;
               font-size:r2(24)
               margin-left:r2(54)
+              background-image: linear-gradient(-8deg,#f4d736 0%,#fced00 51%,#a0eee6 100%), linear-gradient(#faeb03, #faeb03);
+              box-shadow: r2(1) r2(2) r2(6) 0px rgba(0, 32, 59, 0.42);
             }
           }
         }
