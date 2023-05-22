@@ -552,6 +552,9 @@ export default {
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
   },
+  destroyed() {
+    sessionStorage.removeItem("isfirst");
+  },
   methods: {
     format_with_substring,
     localgo() {
@@ -574,11 +577,16 @@ export default {
           // if (week.amount > 0) {
           //   this.initdialog = true;
           // }
+
+          let isfirst = sessionStorage.getItem("isfirst");
+          console.log("isfirst", isfirst);
           if (
+            isfirst &&
             !data.is_time_out &&
             (sub_week.amount > 0 || data.activity.reward > 0)
           ) {
             this.initdialog = true;
+            sessionStorage.setItem("isfirst", false);
           }
 
           // 本周数据

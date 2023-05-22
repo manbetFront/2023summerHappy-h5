@@ -574,11 +574,16 @@ export default {
           // if (week.amount > 0) {
           //   this.initdialog = true;
           // }
+
+          let isfirst = sessionStorage.getItem("isfirst");
+          console.log("isfirst", isfirst);
           if (
+            isfirst &&
             !data.is_time_out &&
             (sub_week.amount > 0 || data.activity.reward > 0)
           ) {
             this.initdialog = true;
+            sessionStorage.setItem("isfirst", false);
           }
 
           // 本周数据
@@ -1307,14 +1312,14 @@ r2(designpx )
         }
       }
       .mountbox{
-        width:r2(476)
+        width:r2(506)
         margin-left:r2(45)
         margin-top:r2(23)
         .able{
           display:flex;
           margin-bottom:r2(16)
           .avai{
-            width: r2(310);
+            width: r2(330);
             height: r2(50);
             line-height: r2(50);
             background-image: linear-gradient(1deg,#3182fb 0%,#8ebbfb 0%,#ebf3fa 0%,#67d7fc 100%), linear-gradient(#3e8ae1, #3e8ae1);
@@ -1322,7 +1327,7 @@ r2(designpx )
             border-radius: r2(8);
             color: #0454a9;
             font-size:r2(24)
-            padding-left:r2(20)
+            padding-left:r2(10)
           }
           .get{
             width: r2(150);
@@ -1716,6 +1721,10 @@ r2(designpx )
 
 .point{
   cursor:pointer;
+}
+.none{
+  background-image:none!important
+  background-color:#fff;
 }
 
 /* 定义一个闪烁动画 */
