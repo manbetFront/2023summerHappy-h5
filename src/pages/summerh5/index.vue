@@ -571,9 +571,9 @@ export default {
           this.activityContent = data;
           let { week, sub_week } = data;
           // 当有可领取且在领取时间内，显示领取弹窗
-          if (week.amount > 0) {
-            this.initdialog = true;
-          }
+          // if (week.amount > 0) {
+          //   this.initdialog = true;
+          // }
           if (
             !data.is_time_out &&
             (sub_week.amount > 0 || data.activity.reward > 0)
