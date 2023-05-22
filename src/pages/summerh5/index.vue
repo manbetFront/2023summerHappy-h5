@@ -1222,11 +1222,13 @@ r2(designpx )
               height: r2(50);
               border-radius: r2(8);
               line-height: r2(0);
-              background:#f1fbfe
+              // background:#f1fbfe
               text-align:center
               color: #0454a9;
               font-size:r2(24)
               margin-left:r2(15)
+              background-image: linear-gradient(-8deg,#f4d736 0%,#fced00 51%,#a0eee6 100%), linear-gradient(#faeb03, #faeb03);
+              box-shadow: r2(1) r2(2) r2(6) 0px rgba(0, 32, 59, 0.42);
             }
           }
         }
