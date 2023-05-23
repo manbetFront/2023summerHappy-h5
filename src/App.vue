@@ -17,7 +17,7 @@ export default {
       this.isShowComponents = false;
     }
     console.log("app111");
-    sessionStorage.setItem("isfirst", true);
+    sessionStorage.setItem("isfirst", 1);
   },
 };
 </script>

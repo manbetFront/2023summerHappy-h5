@@ -580,13 +580,14 @@ export default {
 
           let isfirst = sessionStorage.getItem("isfirst");
           console.log("isfirst", isfirst);
-          if (
-            isfirst &&
-            !data.is_time_out &&
-            (sub_week.amount > 0 || data.activity.reward > 0)
-          ) {
-            this.initdialog = true;
-            sessionStorage.setItem("isfirst", false);
+          if (isfirst == 1) {
+            if (
+              !data.is_time_out &&
+              (sub_week.amount > 0 || data.activity.reward > 0)
+            ) {
+              this.initdialog = true;
+              sessionStorage.setItem("isfirst", 2);
+            }
           }
 
           // 本周数据
