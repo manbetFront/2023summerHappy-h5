@@ -1,8 +1,8 @@
 import axios from "axios";
-// import store from "@/store";
-import { Message } from "element-ui";
-import { getUrlParams } from "@/common/js/utils.js";
-import { judgeBrowser } from "@/utils/index";
+import store from "@/store";
+import { isApp } from 'dev-utils-pkg'
+
+import { getUrlParams , getUsernameByPlatform} from "@/common/js/utils.js";
 
 // create an axios instance
 const service = axios.create({
@@ -15,10 +15,10 @@ const service = axios.create({
 service.interceptors.request.use(
   async (config) => {
     try {
-      config.headers["Authorization"] = getUrlParams().username || "";
+      config.headers["Authorization"] =  sessionStorage.username || getUrlParams().username || store.state.username || getUsernameByPlatform();
     } catch (e) {}
-
-    config.headers["action"] = judgeBrowser() == "h5" ? "h5" : "web";
+    
+    config.headers["action"] = (isApp() || !!window.xcjsmanager) ? 'h5' : 'web'
     return config;
   },
   (error) => {

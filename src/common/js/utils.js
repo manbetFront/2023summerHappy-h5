@@ -89,3 +89,5 @@ export const format_with_substring = (number) => {
   // 调整部分和小数部分拼接
   return r + (!!fraction ? "." + fraction : "");
 };
+
+
