@@ -2,6 +2,7 @@ import axios from "axios";
 // import store from "@/store";
 import { Message } from "element-ui";
 import { getUrlParams } from "@/common/js/utils.js";
+import { judgeBrowser } from "@/utils/index";
 
 // create an axios instance
 const service = axios.create({
@@ -16,16 +17,8 @@ service.interceptors.request.use(
     try {
       config.headers["Authorization"] = getUrlParams().username || "";
     } catch (e) {}
-    let client = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-    let isenv = "";
-    if (client) {
-      isenv = "h5";
-    } else {
-      isenv = "web";
-    }
-    config.headers["action"] = isenv;
+
+    config.headers["action"] = judgeBrowser() == "h5" ? "h5" : "web";
     return config;
   },
   (error) => {
