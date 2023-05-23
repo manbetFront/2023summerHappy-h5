@@ -93,7 +93,9 @@
             <div class="able">
               <div class="avai">
                 上周可领取彩金：{{
-                  format_with_substring(activityContent.sub_week.amount)
+                  activityContent.sub_week.amount
+                    ? format_with_substring(activityContent.sub_week.amount)
+                    : 0
                 }}元
               </div>
               <Button
@@ -114,7 +116,9 @@
             <div class="able">
               <div class="avai">
                 本周可领取彩金：{{
-                  format_with_substring(activityContent.week.amount)
+                  activityContent.week.amount
+                    ? format_with_substring(activityContent.week.amount)
+                    : 0
                 }}元
               </div>
               <Button
