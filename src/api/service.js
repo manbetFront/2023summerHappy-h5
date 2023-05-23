@@ -16,7 +16,16 @@ service.interceptors.request.use(
     try {
       config.headers["Authorization"] = getUrlParams().username || "";
     } catch (e) {}
-    config.headers["action"] = "web";
+    let client = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    let isenv = "";
+    if (client) {
+      isenv = "h5";
+    } else {
+      isenv = "web";
+    }
+    config.headers["action"] = isenv;
     return config;
   },
   (error) => {
