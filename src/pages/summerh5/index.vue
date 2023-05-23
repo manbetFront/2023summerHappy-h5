@@ -392,7 +392,7 @@ Vue.use(Progress)
   .use(Pagination);
 import { _debounce, getMondayAndSunday, judgeBrowser } from "@/utils";
 import { mapGetters } from "vuex";
-import { format_with_substring } from "@/common/js/utils";
+import { format_with_substring, setEncrypt } from "@/common/js/utils";
 import {
   asyncGetUsernameByPlatform,
   getUsernameByPlatform,
@@ -545,6 +545,7 @@ export default {
     function isApp() {
       return !!window.xcjsmanager;
     }
+    console.log("app", isApp());
     if (isApp()) {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
