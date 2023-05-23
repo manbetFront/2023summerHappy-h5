@@ -16,7 +16,6 @@ export default {
     if (process.env.VUE_APP_TITLE === "PROD") {
       this.isShowComponents = false;
     }
-    console.log("app111");
     sessionStorage.setItem("isfirst", 1);
   },
 };

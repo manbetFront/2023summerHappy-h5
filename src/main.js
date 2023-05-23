@@ -26,7 +26,7 @@ new Vue({
   router,
   i18n,
   created() {
-    const obj = getUrlParams(window.location.href);
+    const obj = getUrlParams();
     const username = obj.username;
     if (username) {
       sessionStorage.setItem("username", username);

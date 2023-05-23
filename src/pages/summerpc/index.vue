@@ -23,9 +23,8 @@
 
       <div class="themeone">
         <div class="onetitle">
-          主题一:
-          活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下
-          要求，即可获得对应彩金奖励，完成平台数越多奖励越多。
+          主题一:活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。（领取期限：次周周二
+          23:59:59 前）
         </div>
         <div class="datecheck">
           <div
@@ -50,7 +49,7 @@
 
         <div class="table">
           <div class="theader">
-            <div class="hone">指定平台任务</div>
+            <div class="hone">指定任务平台</div>
             <div class="htwo">累计有效投注</div>
             <div class="hthree">奖励</div>
             <div class="hfour">任务状态</div>

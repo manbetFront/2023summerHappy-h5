@@ -4,7 +4,7 @@
       <div class="rowbox">
         <div class="actinfo">
           <div class="time">【活动时间】</div>
-          <div class="date">2023年06月26日 – 2023年07月30日</div>
+          <div class="date">2023/06/26 – 2023/07/30</div>
         </div>
         <div class="actinfo">
           <div class="time">【活动对象】</div>
@@ -25,9 +25,8 @@
 
       <div class="themeone">
         <div class="onetitle">
-          主题一:
-          活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下
-          要求，即可获得对应彩金奖励，完成平台数越多奖励越多。
+          主题一:活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。（领取期限：次周周二
+          23:59:59 前）
         </div>
         <div class="datecheck">
           <div
@@ -52,7 +51,7 @@
 
         <div class="table">
           <div class="theader">
-            <div class="hone">指定平台任务</div>
+            <div class="hone">指定任务平台</div>
             <div class="htwo">累计有效投注</div>
             <div class="hthree">奖励</div>
             <div class="hfour">任务状态</div>
@@ -424,70 +423,218 @@ export default {
       peopleimgList: [
         {
           url: require("../../common/image/peopleicon/bbin真人.png"),
-          // name: "BBIN娱乐",
-          // percent: 23,
-          // award: "38元",
-          // status: 1,
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "BBIN娱乐",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/万博娱乐.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "万博娱乐",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/ae真人.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "AE性感百家",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/ag娱乐.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "AG娱乐",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/完美视讯.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "BG娱乐",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/欧博娱乐.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "完美视讯",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/ogplus.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "欧博娱乐",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/evo真人.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "OG Plus",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/万博实地厅.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "EVO真人",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/cq9真人.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "万博实地厅",
+          status: -1,
         },
         {
           url: require("../../common/image/peopleicon/bg娱乐.png"),
+          award: 38,
+          amount: 20000,
+          effective_betting: 0,
+          platform_name: "CQ9真人",
+          status: -1,
         },
       ],
       // 棋牌
       chessimgList: [
         {
           url: require("../../common/image/chessicon/双赢棋牌.png"),
+          award: 28,
+          amount: 15000,
+          effective_betting: 0,
+          platform_name: "双赢棋牌",
+          status: -1,
         },
         {
           url: require("../../common/image/chessicon/万博幸运棋牌.png"),
+          award: 28,
+          amount: 15000,
+          effective_betting: 0,
+          platform_name: "万博幸运棋牌",
+          status: -1,
         },
         {
           url: require("../../common/image/chessicon/万博棋牌.png"),
+          award: 28,
+          amount: 15000,
+          effective_betting: 0,
+          platform_name: "万博棋牌",
+          status: -1,
         },
         {
           url: require("../../common/image/chessicon/万博欢乐棋牌.png"),
+          award: 28,
+          amount: 15000,
+          effective_betting: 0,
+          platform_name: "万博欢乐棋牌",
+          status: -1,
         },
       ],
       // 电子
       electimgList: [
-        { url: require("../../common/image/electicon/sg电子.png") },
-        { url: require("../../common/image/electicon/AG游戏厅.png") },
-        { url: require("../../common/image/electicon/mg游戏.png") },
-        { url: require("../../common/image/electicon/pg游戏.png") },
-        { url: require("../../common/image/electicon/pp游戏.png") },
-        { url: require("../../common/image/electicon/万博电游.png") },
-        { url: require("../../common/image/electicon/jdb游戏.png") },
-        { url: require("../../common/image/electicon/cq9.png") },
-        { url: require("../../common/image/electicon/icg游戏.png") },
-        { url: require("../../common/image/electicon/fc.png") },
-        { url: require("../../common/image/electicon/万博hw.png") },
+        {
+          url: require("../../common/image/electicon/sg电子.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "SG 电子",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/AG游戏厅.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "AG游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/mg游戏.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "MG游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/pg游戏.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "PG游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/pp游戏.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "PP游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/万博电游.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "万博电游",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/jdb游戏.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "JDB 夺宝电子",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/cq9.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "CQ9游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/icg游戏.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "ICG游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/fc.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "FC游戏厅",
+          status: -1,
+        },
+        {
+          url: require("../../common/image/electicon/万博hw.png"),
+          award: 18,
+          amount: 10000,
+          effective_betting: 0,
+          platform_name: "万博HW电子",
+          status: -1,
+        },
       ],
       taskList: [
         { num: "≥5", amount: "20" },
@@ -540,6 +687,9 @@ export default {
     ...mapGetters(["username"]),
   },
 
+  created() {
+    window.setUserName = this.setUserName;
+  },
   async mounted() {
     const _ = this;
     function isApp() {
@@ -566,6 +716,7 @@ export default {
     }
 
     const username = getUsernameByPlatform();
+    console.log("111", username);
     if (username) {
       sessionStorage.setItem("username", username);
       this.$username = username;
@@ -623,8 +774,30 @@ export default {
     localgo() {
       window.open("https://jc.8manbet.net/mobile/#/?activityId=undefined");
     },
+    setUserName(val) {
+      if (sessionStorage.username) {
+        return;
+      }
+      if (val) {
+        sessionStorage.setItem("username", setEncrypt(val));
+        this.$username = setEncrypt(val);
+        this.$store.commit("SET_USERNAME", setEncrypt(val));
+        this.$store.dispatch("setHomeInfo");
+      }
+    },
     // 获取页面信息
     async getheme() {
+      console.log("his.username", this.username);
+      if (!this.username) {
+        this.dialogVisible = true;
+        this.weekimmon = this.peopleimgList;
+        this.weekelect = this.chessimgList;
+        this.weekchess = this.electimgList;
+
+        this.weekList = this.peopleimgList;
+        return;
+      }
+
       await cumulativeTheme().then((res) => {
         console.log(res);
         if (res.code == 0) {
@@ -785,6 +958,14 @@ export default {
     },
     // 切换tab
     changetab(index) {
+      if (!this.username) {
+        this.weeksubimmon = this.peopleimgList;
+        this.weeksubelect = this.chessimgList;
+        this.weeksubchess = this.electimgList;
+
+        // this.weekList = this.peopleimgList;
+        // return;
+      }
       this.action = index;
       this.weekList = [];
       let {
@@ -828,6 +1009,10 @@ export default {
     },
 
     getThisWeek(num, type) {
+      if (!this.username) {
+        this.dialogVisible = true;
+        return;
+      }
       if (!num) {
         this.$message({ type: "warning", message: "暂时没有可领取的彩金哦～" });
         return;
@@ -838,6 +1023,10 @@ export default {
     },
     // 领取本周彩金
     confirm() {
+      if (!this.username) {
+        this.dialogVisible = true;
+        return;
+      }
       if (this.getType == 1) {
         getNowWeekMoney().then((res) => {
           if (res.code == 0) {
@@ -984,8 +1173,8 @@ r2(designpx )
         font-size: r2(24);
         color: #FFFFFF;
         font-weight: 600;
-        padding-top:r2(20)
-        padding-bottom:r2(10)
+        padding-top:r2(23)
+        padding-bottom:r2(5)
       }
       .actinfo{
         margin:0 auto
@@ -1258,7 +1447,7 @@ r2(designpx )
       background-repeat:no-repeat;
       margin-top:r2(76)
       .twotitle{
-        width:r2(620)
+        width:r2(600)
         font-size: r2(20);
         line-height: r2(25);
         color: #EBFA03;
