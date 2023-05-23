@@ -390,9 +390,13 @@ Vue.use(Progress)
   .use(Table)
   .use(Loading)
   .use(Pagination);
-import { _debounce } from "@/utils";
+import { _debounce, getMondayAndSunday, judgeBrowser } from "@/utils";
 import { mapGetters } from "vuex";
 import { format_with_substring } from "@/common/js/utils";
+import {
+  asyncGetUsernameByPlatform,
+  getUsernameByPlatform,
+} from "dev-utils-pkg";
 
 import {
   cumulativeTheme,
@@ -422,7 +426,7 @@ export default {
           url: require("../../common/image/peopleicon/bbin真人.png"),
           // name: "BBIN娱乐",
           // percent: 23,
-          // amount: "38元",
+          // award: "38元",
           // status: 1,
         },
         {
@@ -544,13 +548,13 @@ export default {
     //   spinner: "el-icon-loading",
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
-    const isbro = this.judgeBrowser();
+    const isbro = judgeBrowser();
     if (isbro == "h5") {
       this.$router.replace(`/summer_h5`);
     }
     this.getheme();
 
-    let res = this.getMondayAndSunday();
+    let res = getMondayAndSunday();
 
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
@@ -853,79 +857,9 @@ export default {
     // 主题二派发记录
     async getTwoinfo() {
       await getThemeList(this.twosearch).then((res) => {
-        console.log(res);
         this.twolistdata = res.data.data;
         this.twototal = res.data.total;
       });
-    },
-
-    /**
-     * 得到本周一、本周日、上周一、上周日的时间
-     */
-    getMondayAndSunday() {
-      var today = new Date();
-
-      //构建当前日期,格式：2022-08-22 00:00:00
-      var year = today.getFullYear(); //本年
-      var month = today.getMonth() + 1; //本月
-      var day = today.getDate(); //本日
-      var newDate = new Date(year + "-" + month + "-" + day + " 00:00:00"); //年月日拼接
-
-      var nowTime = newDate.getTime(); //当前的时间戳
-      var weekDay = newDate.getDay(); //当前星期 0.1.2.3.4.5.6 【0 = 周日】
-
-      var oneDayTime = 24 * 60 * 60 * 1000; //一天的总ms
-
-      // 当前星期减去天数，如今天为周五，则本周一为周五的时间戳减去4天的时间戳。但周日特殊，周一至周六是周几的到的weekDay就是几，但是周日的到的为0，需特殊处理
-      var thisWeekMondayTime = (1 - weekDay) * oneDayTime + nowTime; //本周一的时间戳
-      if (weekDay == 0) {
-        // weekDay = 0 为周日，此时本周一时间为周日减去6天的时间
-        thisWeekMondayTime = nowTime - 6 * oneDayTime;
-      }
-
-      var thisWeekSundayTime = thisWeekMondayTime + 6 * 24 * 60 * 60 * 1000; // 本周日
-
-      var lastWeekMondayTime = thisWeekMondayTime - 7 * oneDayTime; // 上周一
-      var lastWeekSundayTime = thisWeekMondayTime - oneDayTime; // 上周日
-
-      var res = {
-        thisWeekMonday: this.dateToYYYYMMDD(thisWeekMondayTime),
-        thisWeekSunday: this.dateToYYYYMMDD(thisWeekSundayTime),
-        lastWeekMonday: this.dateToYYYYMMDD(lastWeekMondayTime),
-        lastWeekSunday: this.dateToYYYYMMDD(lastWeekSundayTime),
-      };
-      return res;
-    },
-    // 返回 yyyy-MM-dd 格式字符串
-    dateToYYYYMMDD(date) {
-      var time = new Date(date);
-      var y = time.getFullYear();
-      var m = time.getMonth() + 1;
-      m = m > 9 ? m : "0" + m;
-      var d = time.getDate();
-      d = d > 9 ? d : "0" + d;
-
-      return y + "/" + m + "/" + d;
-    },
-    judgeBrowser() {
-      let isenv = "";
-      // 先判断是不是微信端打开的
-      if (/(micromessenger)/i.test(navigator.userAgent)) {
-        // alert("微信");
-        isenv = "wechat";
-      } else {
-        // alert("普通浏览器");
-        // 判断h5还是pc true就是h5
-        let client = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-        if (client) {
-          isenv = "h5";
-        } else {
-          isenv = "pc";
-        }
-      }
-      return isenv;
     },
   },
 };
