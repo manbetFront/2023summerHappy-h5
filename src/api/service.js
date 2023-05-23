@@ -18,7 +18,8 @@ service.interceptors.request.use(
       config.headers["Authorization"] =  sessionStorage.username || getUrlParams().username || store.state.username || getUsernameByPlatform();
     } catch (e) {}
     
-    config.headers["action"] = (isApp() || !!window.xcjsmanager) ? 'h5' : 'web'
+    
+    config.headers["action"] = (isApp() || !!window.xcjsmanager || !!window.flutter_inappwebview) ? 'h5' : 'web'
     return config;
   },
   (error) => {
