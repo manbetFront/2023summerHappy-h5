@@ -769,7 +769,7 @@ export default {
     },
 
     getThisWeek(num, type) {
-      if (num == 0) {
+      if (!num) {
         this.$message({ type: "warning", message: "暂时没有可领取的彩金哦～" });
         return;
       }
