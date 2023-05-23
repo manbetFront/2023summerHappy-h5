@@ -25,7 +25,7 @@ export function getMondayAndSunday() {
   var year = today.getFullYear(); //本年
   var month = today.getMonth() + 1; //本月
   var day = today.getDate(); //本日
-  var newDate = new Date(year + "-" + month + "-" + day + " 00:00:00"); //年月日拼接
+  var newDate = new Date(year + "/" + month + "/" + day + " 00:00:00"); //年月日拼接
 
   var nowTime = newDate.getTime(); //当前的时间戳
   var weekDay = newDate.getDay(); //当前星期 0.1.2.3.4.5.6 【0 = 周日】
