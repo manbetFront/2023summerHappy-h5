@@ -210,9 +210,9 @@
       </div>
     </div>
 
-    <div v-show="dialogVisible" class="model-box" :style="{ top: top + 'px' }">
+    <div v-show="dialogVisible" class="model-box" >
       <div class="modelveng" @click="dialogVisible = false"></div>
-      <div class="modeltable">
+      <div class="modeltable" :style="{ top: top + 'px' }">
         <div class="bkg">
           <div class="modeltitle">尊敬的用户您好！</div>
           <div class="modelcontent">
@@ -676,7 +676,7 @@ export default {
       },
       onetotal: 0,
       twototal: 0,
-      top: 100,
+      top: 0,
     };
   },
   computed: {
