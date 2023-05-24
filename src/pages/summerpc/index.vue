@@ -391,9 +391,7 @@
 <script>
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
-Vue.use(Progress)
-  .use(Table)
-  .use(Pagination);
+Vue.use(Progress).use(Table).use(Pagination);
 
 import {
   _debounce,
@@ -721,6 +719,8 @@ export default {
 
     this.receiveIframe();
     this.getheme();
+
+    this.backTop()
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -952,9 +952,12 @@ export default {
     },
     // 返回顶部
     backTop() {
-      this.$refs.home.scrollIntoView({ behavior: "smooth" });
+      this.$nextTick(() => {
+        this.$refs.home &&
+          this.$refs.home.scrollIntoView({ behavior: "smooth" });
+      });
     },
-    getThisWeek: _debounce(function(num, type) {
+    getThisWeek: _debounce(function (num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
@@ -1057,13 +1060,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function(e) {
+        function (e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function(e) {
+    getTop: _debounce(function (e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
@@ -1719,68 +1722,68 @@ r2(val) {
   z-index: 22;
 }
 
- .post {
-    width: r2(378);
-    height: r2(220);
-    background: rgba(225, 225, 225, 0.33);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.post {
+  width: r2(378);
+  height: r2(220);
+  background: rgba(225, 225, 225, 0.33);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: r2(10);
+  margin: auto;
+
+  .cbg {
+    width: r2(357);
+    height: r2(199);
+    background-image: linear-gradient(-8deg, #0a6fd7 0%, #1e79e9 0%, #3182fb 0%, #05bbf7 100%), linear-gradient(#ffffff, #ffffff);
     border-radius: r2(10);
-    margin: auto;
+  }
 
-    .cbg {
-      width: r2(357);
-      height: r2(199);
-      background-image: linear-gradient(-8deg, #0a6fd7 0%, #1e79e9 0%, #3182fb 0%, #05bbf7 100%), linear-gradient(#ffffff, #ffffff);
-      border-radius: r2(10);
-    }
+  .modeltitle {
+    font-size: r2(24);
+    line-height: r2(15);
+    color: #ebfa03;
+    box-shadow: r2(1) r2(2) r2(10) 0px rgba(0, 150, 234, 0.75);
+    width: r2(348);
+    text-align: center;
+    margin-top: r2(30);
+  }
 
-    .modeltitle {
-      font-size: r2(24);
-      line-height: r2(15);
-      color: #ebfa03;
-      box-shadow: r2(1) r2(2) r2(10) 0px rgba(0, 150, 234, 0.75);
-      width: r2(348);
+  .modelcontent {
+    font-size: r2(18);
+    line-height: r2(30);
+    color: #ffffff;
+    width: r2(348);
+    text-align: center;
+    margin-top: r2(10);
+  }
+
+  .btns {
+    padding: 0 r2(30);
+    margin-top: r2(20);
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      width: r2(120);
+      height: r2(45);
+      line-height: r2(45);
       text-align: center;
-      margin-top: r2(30);
+      background-image: linear-gradient(1deg, #3182fb 0%, #8ebbfb 0%, #ebf3fa 0%, #67d7fc 100%), linear-gradient(#faeb03, #faeb03);
+      box-shadow: r2(1) r2(2) r2(6) 0px rgba(1, 34, 62, 0.42);
+      border-radius: r2(8);
+      color: #0454a9;
     }
 
-    .modelcontent {
-      font-size: r2(18);
-      line-height: r2(30);
-      color: #ffffff;
-      width: r2(348);
-      text-align: center;
-      margin-top: r2(10);
-    }
-
-    .btns {
-      padding: 0 r2(30);
-      margin-top: r2(20);
-      display: flex;
-      justify-content: space-between;
-
-      div {
-        width: r2(120);
-        height: r2(45);
-        line-height: r2(45);
-        text-align: center;
-        background-image: linear-gradient(1deg, #3182fb 0%, #8ebbfb 0%, #ebf3fa 0%, #67d7fc 100%), linear-gradient(#faeb03, #faeb03);
-        box-shadow: r2(1) r2(2) r2(6) 0px rgba(1, 34, 62, 0.42);
-        border-radius: r2(8);
-        color: #0454a9;
-      }
-
-      .cans {
-        background: #fff;
-      }
-    }
-
-    .center {
-      justify-content: center;
+    .cans {
+      background: #fff;
     }
   }
+
+  .center {
+    justify-content: center;
+  }
+}
 
 .login_box {
   position: absolute;
