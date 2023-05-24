@@ -28,6 +28,7 @@ new Vue({
   created() {
     const obj = getUrlParams();
     const username = obj.username;
+    console.log(username,"-----")
     if (username) {
       sessionStorage.setItem("username", username);
       store.commit("SET_USERNAME", username);
