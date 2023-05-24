@@ -714,6 +714,8 @@ export default {
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+
+    this.receiveIframe()
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");

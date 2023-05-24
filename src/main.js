@@ -5,9 +5,9 @@ import App from "./App.vue";
 import "@/common/stylus/index.styl";
 import vueLoginTool from "vue-login-tool";
 import vConsole from "vconsole";
-if (process.env.VUE_APP_TITLE !== "PROD") {
-  new vConsole();
-}
+// if (process.env.VUE_APP_TITLE !== "PROD") {
+//   new vConsole();
+// }
 
 import { getUrlParams } from "@/common/js/utils";
 // 导入 vue-i18n 插件
