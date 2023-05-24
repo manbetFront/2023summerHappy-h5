@@ -375,7 +375,14 @@
 
 <script>
 import Vue from "vue";
-import { Progress, Table, Loading, Button, Pagination } from "element-ui";
+import {
+  Progress,
+  Table,
+  Loading,
+  Dialog,
+  Button,
+  Pagination,
+} from "element-ui";
 Vue.use(Progress)
   .use(Dialog)
   .use(Table)
