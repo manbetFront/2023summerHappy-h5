@@ -376,7 +376,9 @@
 <script>
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
-Vue.use(Progress).use(Table).use(Pagination);
+Vue.use(Progress)
+  .use(Table)
+  .use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -682,6 +684,11 @@ export default {
   },
   created() {},
   async mounted() {
+    const isbro = judgeBrowser();
+    if (isbro == "h5") {
+      this.$router.replace(`/summer_h5`);
+      return;
+    }
     // 加载时显示loading
     // this.loading = this.$loading({
     //   lock: true,
@@ -697,7 +704,7 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
     this.receiveIframe();
-    this.getheme()
+    this.getheme();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -1032,13 +1039,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function (e) {
+        function(e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function (e) {
+    getTop: _debounce(function(e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
