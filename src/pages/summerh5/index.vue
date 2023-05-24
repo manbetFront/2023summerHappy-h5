@@ -1,5 +1,5 @@
 <template>
-  <div class="pc_container">
+  <div class="pc_container" ref="home">
     <div class="allbox">
       <div class="rowbox">
         <div class="actinfo">
@@ -781,6 +781,7 @@ export default {
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+    this.receiveIframe();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -1034,9 +1035,27 @@ export default {
     },
     // 返回顶部
     backTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
+      this.$refs.home.scrollIntoView({ behavior: "smooth" });
+      // document.body.scrollTop = 0;
+      // document.documentElement.scrollTop = 0;
     },
+    receiveIframe() {
+      let _ = this;
+      window.addEventListener(
+        "message",
+        function(e) {
+          _.getTop(e);
+        },
+        false
+      );
+    },
+    getTop: _debounce(function(e) {
+      this.top = 100;
+      if (e.data && e.data.type === "scroll") {
+        this.top = Number(e.data.scrollTop) + 30;
+      } else {
+      }
+    }, 500),
 
     getThisWeek(num, type) {
       if (!this.username) {
