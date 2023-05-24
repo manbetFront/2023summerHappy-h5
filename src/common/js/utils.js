@@ -52,11 +52,11 @@ export const getUsernameByPlatform = () => {
 };
 
 export const getUrlParams = (url = location.href) => {
-  const Params = {};
+  const params = {};
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-    Params[key] = value;
+    params[key] = decodeURIComponent(value);
   });
-  return Params;
+  return params;
 };
 
 // 获取url中的传参

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-login-tool :env-type-num="2" v-if="isShowComponents" />
+    <!-- <vue-login-tool :env-type-num="2" v-if="isShowComponents" /> -->
     <router-view></router-view>
   </div>
 </template>
