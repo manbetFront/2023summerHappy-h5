@@ -376,7 +376,9 @@
 <script>
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
-Vue.use(Progress).use(Table).use(Pagination);
+Vue.use(Progress)
+  .use(Table)
+  .use(Pagination);
 
 import {
   _debounce,
@@ -672,21 +674,17 @@ export default {
       top: 100,
     };
   },
-  computed: {
-    
-  },
+  computed: {},
   beforeCreate() {
-     const isbro = judgeBrowser();
+    const isbro = judgeBrowser();
     if (isbro == "h5") {
-       this.$router.push({
-        path: '/summer_h5' + window.location.search,
+      this.$router.push({
+        path: "/summer_h5" + window.location.search,
       });
       return;
     }
   },
-  created() {
-
-  },
+  created() {},
   async mounted() {
     // 加载时显示loading
     // this.loading = this.$loading({
@@ -695,7 +693,6 @@ export default {
     //   spinner: "el-icon-loading",
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
-   
 
     let res = getMondayAndSunday();
 
@@ -936,8 +933,7 @@ export default {
     backTop() {
       this.$refs.home.scrollIntoView({ behavior: "smooth" });
     },
-
-    getThisWeek(num, type) {
+    getThisWeek: _debounce(function(num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
@@ -949,7 +945,7 @@ export default {
       this.getType = type;
       this.tipdialog = true;
       this.moneyNum = num;
-    },
+    }, 800),
     // 领取本周彩金
     confirm() {
       if (!this.username) {
@@ -1039,13 +1035,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function (e) {
+        function(e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function (e) {
+    getTop: _debounce(function(e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;

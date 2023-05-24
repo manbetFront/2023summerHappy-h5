@@ -383,7 +383,11 @@ import {
   Button,
   Pagination,
 } from "element-ui";
-Vue.use(Progress).use(Dialog).use(Table).use(Loading).use(Pagination);
+Vue.use(Progress)
+  .use(Dialog)
+  .use(Table)
+  .use(Loading)
+  .use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -392,7 +396,7 @@ import {
 } from "@/utils";
 import { mapGetters } from "vuex";
 
-import { setEncrypt , getUrlParams } from "@/common/js/utils";
+import { setEncrypt, getUrlParams } from "@/common/js/utils";
 import {
   asyncGetUsernameByPlatform,
   getUsernameByPlatform,
@@ -734,7 +738,7 @@ export default {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
         // eslint-disable-next-line no-undef
-        new XCJSRequestParam("common", "userinfo", null, function (response) {
+        new XCJSRequestParam("common", "userinfo", null, function(response) {
           let username = response.loginName;
 
           const RE = /^d8100/;
@@ -1049,13 +1053,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function (e) {
+        function(e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function (e) {
+    getTop: _debounce(function(e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
@@ -1063,7 +1067,7 @@ export default {
       }
     }, 500),
 
-    getThisWeek(num, type) {
+    getThisWeek: _debounce(function(num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
@@ -1075,7 +1079,7 @@ export default {
       this.getType = type;
       this.tipdialog = true;
       this.moneyNum = num;
-    },
+    }, 800),
     // 领取本周彩金
     confirm() {
       if (!this.username) {
