@@ -676,7 +676,7 @@ export default {
       },
       onetotal: 0,
       twototal: 0,
-      top: 0,
+      top: 100,
     };
   },
   computed: {
@@ -1060,6 +1060,7 @@ export default {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
+        if (this.top > 3800) return
       } else {
       }
     }, 500),
