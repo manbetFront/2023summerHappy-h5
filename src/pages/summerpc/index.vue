@@ -376,9 +376,7 @@
 <script>
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
-Vue.use(Progress)
-  .use(Table)
-  .use(Pagination);
+Vue.use(Progress).use(Table).use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -682,24 +680,8 @@ export default {
   computed: {
     ...mapGetters(["username"]),
   },
-  watch: {
-    username: {
-      handler(nv) {
-        this.getheme();
-      },
-      deep: true,
-      immediate: true,
-    },
-  },
-
-  created() {
-  },
+  created() {},
   async mounted() {
-    const isbro = judgeBrowser();
-    if (isbro == "h5") {
-      this.$router.replace(`/summer_h5`);
-      return;
-    }
     // 加载时显示loading
     // this.loading = this.$loading({
     //   lock: true,
@@ -715,6 +697,7 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
     this.receiveIframe();
+    this.getheme()
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -1049,17 +1032,17 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function(e) {
+        function (e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function(e) {
+    getTop: _debounce(function (e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
-        if (this.top > 3800) return
+        if (this.top > 3800) return;
       } else {
       }
     }, 500),
@@ -1078,7 +1061,6 @@ r2(val) {
 }
 
 .pc_container {
-
   width: 100vw;
   height: r2(4040);
   font-family: Arial;
@@ -1614,7 +1596,7 @@ r2(val) {
 
     .btns {
       width: r2(1200);
-      margin: 0 auto
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       margin-top: r2(50);
