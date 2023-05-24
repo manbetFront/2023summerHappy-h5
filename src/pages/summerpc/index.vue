@@ -680,7 +680,18 @@ export default {
   computed: {
     ...mapGetters(["username"]),
   },
-  created() {},
+  beforeCreate() {
+     const isbro = judgeBrowser();
+    if (isbro == "h5") {
+       this.$router.push({
+        path: '/summer_h5' + window.location.search,
+      });
+      return;
+    }
+  },
+  created() {
+
+  },
   async mounted() {
     // 加载时显示loading
     // this.loading = this.$loading({
@@ -689,13 +700,7 @@ export default {
     //   spinner: "el-icon-loading",
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
-    const isbro = judgeBrowser();
-    if (isbro == "h5") {
-       this.$router.push({
-        path: '/summer_h5' + window.location.search,
-      });
-      return;
-    }
+   
 
     let res = getMondayAndSunday();
 

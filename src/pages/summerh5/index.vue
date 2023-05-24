@@ -383,11 +383,7 @@ import {
   Button,
   Pagination,
 } from "element-ui";
-Vue.use(Progress)
-  .use(Dialog)
-  .use(Table)
-  .use(Loading)
-  .use(Pagination);
+Vue.use(Progress).use(Dialog).use(Table).use(Loading).use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -395,7 +391,8 @@ import {
   toThousands,
 } from "@/utils";
 import { mapGetters } from "vuex";
-import { setEncrypt } from "@/common/js/utils";
+
+import { setEncrypt , getUrlParams } from "@/common/js/utils";
 import {
   asyncGetUsernameByPlatform,
   getUsernameByPlatform,
@@ -699,11 +696,7 @@ export default {
     //   immediate: true,
     // },
   },
-
-  created() {
-    window.setUserName = this.setUserName;
-  },
-  async mounted() {
+  beforeCreate() {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
       this.$router.push({
@@ -711,7 +704,11 @@ export default {
       });
       return;
     }
-
+  },
+  created() {
+    window.setUserName = this.setUserName;
+  },
+  async mounted() {
     // 不管是否登录都要显示
     let res = getMondayAndSunday();
 
@@ -737,7 +734,7 @@ export default {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
         // eslint-disable-next-line no-undef
-        new XCJSRequestParam("common", "userinfo", null, function(response) {
+        new XCJSRequestParam("common", "userinfo", null, function (response) {
           let username = response.loginName;
 
           const RE = /^d8100/;
@@ -1052,13 +1049,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function(e) {
+        function (e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function(e) {
+    getTop: _debounce(function (e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
