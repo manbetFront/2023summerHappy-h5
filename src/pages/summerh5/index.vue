@@ -392,7 +392,7 @@ import {
   _debounce,
   getMondayAndSunday,
   judgeBrowser,
-  toThousands
+  toThousands,
 } from "@/utils";
 import { mapGetters } from "vuex";
 import { setEncrypt } from "@/common/js/utils";
@@ -707,14 +707,25 @@ export default {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
       this.$router.push({
-        path: '/summer_pc' + window.location.search,
+        path: "/summer_pc" + window.location.search,
       });
       return;
     }
 
-    if (sessionStorage.username || getUrlParams().username || this.$store.state.username) {
-      this.getheme()
-      return
+    // 不管是否登录都要显示
+    let res = getMondayAndSunday();
+
+    this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+    this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
+    this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+
+    if (
+      sessionStorage.username ||
+      getUrlParams().username ||
+      this.$store.state.username
+    ) {
+      this.getheme();
+      return;
     }
 
     const _ = this;
@@ -738,7 +749,7 @@ export default {
           _.$store.commit("SET_USERNAME", username);
           sessionStorage.setItem("username", username);
           _.getheme();
-          
+
           return;
         })
       );
@@ -752,20 +763,17 @@ export default {
             sessionStorage.setItem("username", setEncrypt(username));
             _.$store.commit("SET_USERNAME", setEncrypt(username));
             _.getheme();
-
           }
         });
       return;
     }
 
     const username = getUsernameByPlatform();
-
     if (username) {
       sessionStorage.setItem("username", username);
       this.$username = username;
       this.$store.commit("SET_USERNAME", username);
       this.getheme();
-
     } else {
       // 异步获取用户名
       asyncGetUsernameByPlatform().then((username) => {
@@ -775,26 +783,12 @@ export default {
           this.$username = username;
           this.$store.commit("SET_USERNAME", username);
           this.getheme();
-
         } else {
           this.getIOSUsername();
         }
       });
     }
 
-    // 加载时显示loading
-    // this.loading = this.$loading({
-    //   lock: true,
-    //   text: "Loading",
-    //   spinner: "el-icon-loading",
-    //   background: "rgba(0, 0, 0, 0.7)",
-    // });
-
-    let res = getMondayAndSunday();
-
-    this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
-    this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
-    this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.receiveIframe();
   },
   destroyed() {

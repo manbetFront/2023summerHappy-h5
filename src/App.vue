@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      isShowComponents: false,
+      isShowComponents: true,
     };
   },
   created() {
