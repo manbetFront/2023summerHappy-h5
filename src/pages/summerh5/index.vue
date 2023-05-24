@@ -691,13 +691,13 @@ export default {
     ...mapGetters(["username"]),
   },
   watch: {
-    username: {
-      handler(nv) {
-        this.getheme();
-      },
-      deep: true,
-      immediate: true,
-    },
+    // username: {
+    //   handler(nv) {
+    //     this.getheme();
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
   },
 
   created() {
@@ -706,8 +706,13 @@ export default {
   async mounted() {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
-      this.$router.replace(`/summer_pc`);
+      this.$router.push(`/summer_pc`);
       return;
+    }
+
+    if (sessionStorage.username || getUrlParams().username || this.$store.state.username) {
+      this.getheme()
+      return
     }
 
     const _ = this;
@@ -730,6 +735,8 @@ export default {
           _.$username = username;
           _.$store.commit("SET_USERNAME", username);
           sessionStorage.setItem("username", username);
+          _.getheme();
+          
           return;
         })
       );
@@ -742,6 +749,8 @@ export default {
           if (username) {
             sessionStorage.setItem("username", setEncrypt(username));
             _.$store.commit("SET_USERNAME", setEncrypt(username));
+            _.getheme();
+
           }
         });
       return;
@@ -753,6 +762,8 @@ export default {
       sessionStorage.setItem("username", username);
       this.$username = username;
       this.$store.commit("SET_USERNAME", username);
+      this.getheme();
+
     } else {
       // 异步获取用户名
       asyncGetUsernameByPlatform().then((username) => {
@@ -761,6 +772,8 @@ export default {
           sessionStorage.setItem("username", username);
           this.$username = username;
           this.$store.commit("SET_USERNAME", username);
+          this.getheme();
+
         } else {
           this.getIOSUsername();
         }
@@ -813,6 +826,7 @@ export default {
         sessionStorage.setItem("username", setEncrypt(val));
         this.$username = setEncrypt(val);
         this.$store.commit("SET_USERNAME", setEncrypt(val));
+        this.getheme();
       }
     },
     // 获取页面信息
