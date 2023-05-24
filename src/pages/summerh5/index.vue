@@ -829,7 +829,7 @@ export default {
     async getheme() {
       console.log("his.username", this.username);
       if (!this.username) {
-        this.dialogVisible = true;
+        // this.dialogVisible = true;
         this.weekimmon = this.peopleimgList;
         this.weekelect = this.chessimgList;
         this.weekchess = this.electimgList;
