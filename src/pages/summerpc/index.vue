@@ -737,10 +737,6 @@ export default {
           let data = res.data;
           this.activityContent = data;
           let { week, sub_week } = data;
-          // 当有可领取且在领取时间内，显示领取弹窗
-          // if (week.amount > 0) {
-          //   this.initdialog = true;
-          // }
 
           let isfirst = sessionStorage.getItem("isfirst");
           console.log("isfirst", isfirst);
@@ -749,6 +745,11 @@ export default {
               !data.is_time_out &&
               (sub_week.amount > 0 || data.activity.reward > 0)
             ) {
+              this.initdialog = true;
+              sessionStorage.setItem("isfirst", 2);
+            }
+            // 当有可领取且在领取时间内，显示领取弹窗
+            if (week.amount > 0) {
               this.initdialog = true;
               sessionStorage.setItem("isfirst", 2);
             }
