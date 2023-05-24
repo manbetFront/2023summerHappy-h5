@@ -684,7 +684,7 @@ export default {
   watch: {
     username: {
       handler(nv) {
-        this.getheme()
+        this.getheme();
       },
       deep: true,
       immediate: true,
@@ -695,6 +695,12 @@ export default {
     window.setUserName = this.setUserName;
   },
   async mounted() {
+    const isbro = judgeBrowser();
+    if (isbro == "pc") {
+      this.$router.replace(`/summer_pc`);
+      return;
+    }
+
     const _ = this;
     function isApp() {
       return !!window.xcjsmanager;
@@ -715,7 +721,7 @@ export default {
           _.$username = username;
           _.$store.commit("SET_USERNAME", username);
           sessionStorage.setItem("username", username);
-          return
+          return;
         })
       );
     }
@@ -727,7 +733,6 @@ export default {
           if (username) {
             sessionStorage.setItem("username", setEncrypt(username));
             _.$store.commit("SET_USERNAME", setEncrypt(username));
-          
           }
         });
       return;
@@ -760,10 +765,6 @@ export default {
     //   spinner: "el-icon-loading",
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
-    const isbro = judgeBrowser();
-    if (isbro == "pc") {
-      this.$router.replace(`/summer_pc`);
-    }
 
     let res = getMondayAndSunday();
 
@@ -993,7 +994,7 @@ export default {
         weeksubelect,
         weeksubchess,
       } = this;
-      console.log(index, isWeek);
+   
       if (index == 1) {
         this.weekList = isWeek ? weekimmon : weeksubimmon;
       }

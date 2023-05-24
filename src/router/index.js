@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-const strokeAnalysis = () => import("@/pages/home/index.vue");
+
 const summerpc = () => import("@/pages/summerpc/index.vue");
 const summerh5 = () => import("@/pages/summerh5/index.vue");
 Vue.use(VueRouter);
@@ -9,12 +9,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/home",
-  },
-  {
-    path: "/home",
-    name: "home",
-    component: strokeAnalysis,
+    redirect: "/summer_pc",
   },
   {
     path: "/summer_pc",
