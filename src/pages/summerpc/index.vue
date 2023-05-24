@@ -246,7 +246,7 @@
     </div>
     <div v-show="initdialog" class="model-box">
       <div class="modelveng" @click="initdialog = false"></div>
-      <div class="back_box">
+      <div  class="back_box modeltable" :style="{ top: top + 'px' }">
         <div class="post">
           <div class="cbg">
             <div class="modeltitle">温馨提示</div>
@@ -261,7 +261,7 @@
 
     <div v-show="drawdialog" class="model-box">
       <div class="modelveng" @click="drawdialog = false"></div>
-      <div class="login_box">
+      <div class="login_box" :style="{ top: top + 'px' }">
         <div class="post">
           <img
             class="close"
@@ -320,7 +320,7 @@
 
     <div v-show="themedialog" class="model-box">
       <div class="modelveng" @click="themedialog = false"></div>
-      <div class="login_box">
+      <div class="login_box" :style="{ top: top + 'px' }">
         <div class="post">
           <img
             class="close"
@@ -652,7 +652,7 @@ export default {
       dialogVisible: false,
       tipdialog: false,
       drawdialog: false,
-      themedialog: false,
+      themedialog: true,
       initdialog: false,
       loading: "",
 
