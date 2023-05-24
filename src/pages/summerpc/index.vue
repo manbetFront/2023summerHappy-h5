@@ -1078,12 +1078,14 @@ r2(val) {
 }
 
 .pc_container {
+
   width: 100vw;
   height: r2(4040);
   font-family: Arial;
   background-image: url('../../common/image/bj.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
+  overflow-x: hidden;
 
   .logo {
     width: r2(281);
