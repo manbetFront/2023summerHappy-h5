@@ -701,20 +701,20 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
     this.receiveIframe();
-    this.getheme();
+    // this.getheme();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
   },
-  // watch: {
-  //   username: {
-  //     handler(nv) {
-  //       this.getheme();
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   },
-  // },
+  watch: {
+    username: {
+      handler(nv) {
+        this.getheme();
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   methods: {
     toThousands,
     localgo() {
