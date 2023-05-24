@@ -377,18 +377,13 @@
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
 Vue.use(Progress).use(Table).use(Pagination);
+
 import {
   _debounce,
   getMondayAndSunday,
   judgeBrowser,
   toThousands,
 } from "@/utils";
-import { mapGetters } from "vuex";
-import { format_with_substring, setEncrypt } from "@/common/js/utils";
-import {
-  asyncGetUsernameByPlatform,
-  getUsernameByPlatform,
-} from "dev-utils-pkg";
 
 import {
   cumulativeTheme,
@@ -652,7 +647,7 @@ export default {
       subWeek: "",
       isWeek: true, //true本周，false上周
       dialogVisible: false,
-      tipdialog: false,
+      tipdialog: true,
       drawdialog: false,
       themedialog: false,
       initdialog: false,
@@ -678,7 +673,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["username"]),
+    
   },
   beforeCreate() {
      const isbro = judgeBrowser();
