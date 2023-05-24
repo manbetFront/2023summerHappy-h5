@@ -649,7 +649,7 @@ export default {
       subWeek: "",
       isWeek: true, //true本周，false上周
       dialogVisible: false,
-      tipdialog: true,
+      tipdialog: false,
       drawdialog: false,
       themedialog: false,
       initdialog: false,
