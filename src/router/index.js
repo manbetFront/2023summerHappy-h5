@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/summer_pc",
+    redirect: "/summer_h5",
   },
   {
     path: "/summer_pc",
