@@ -693,7 +693,6 @@ export default {
   },
 
   created() {
-    window.setUserName = this.setUserName;
   },
   async mounted() {
     const isbro = judgeBrowser();
@@ -745,7 +744,7 @@ export default {
         console.log(res);
         if (res.code == 0) {
           if (!res.data) {
-            this.dialogVisible = true;
+            // this.dialogVisible = true;
             return;
           }
           let data = res.data;
@@ -773,7 +772,7 @@ export default {
           // 上周数据
           this.ProcessSubWeek(sub_week);
         } else {
-          this.$message({ type: "warning", message: res.message });
+          // this.$message({ type: "warning", message: res.message });
         }
       });
     },

@@ -833,7 +833,7 @@ export default {
         if (res.code == 0) {
           // this.loading.close();
           if (!res.data) {
-            this.dialogVisible = true;
+            // this.dialogVisible = true;
             return;
           }
           let data = res.data;
