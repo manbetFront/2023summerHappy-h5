@@ -130,7 +130,7 @@
             </div>
           </div>
           <Button class="record" size="mini" @click="getRecive(1)"
-            >领取记录</Button
+            >派发记录</Button
           >
         </div>
       </div>
@@ -177,7 +177,7 @@
               }}元
             </div>
             <Button class="draw" size="mini" @click="getRecive(2)"
-              >领取记录</Button
+              >派发记录</Button
             >
           </div>
         </div>
@@ -721,7 +721,10 @@ export default {
   methods: {
     toThousands,
     localgo() {
-      window.open("https://jc.8manbet.net/mobile/#/?activityId=undefined");
+      window.open(
+        "https://jc.8manbet.net/mobile/#/?activityId=undefined",
+        "_self"
+      );
     },
     // 获取页面信息
     async getheme() {
