@@ -75,8 +75,8 @@
                   "
                 ></Progress>
                 <div class="newnum">
-                  {{ format_with_substring(item.effective_betting) }}元/{{
-                    format_with_substring(item.amount)
+                  {{ toThousands(item.effective_betting) }}元/{{
+                    toThousands(item.amount)
                   }}元
                 </div>
               </div>
@@ -96,7 +96,7 @@
               <div class="avai">
                 上周可领取彩金：{{
                   activityContent.sub_week.amount
-                    ? format_with_substring(activityContent.sub_week.amount)
+                    ? toThousands(activityContent.sub_week.amount)
                     : 0
                 }}元
               </div>
@@ -119,7 +119,7 @@
               <div class="avai">
                 本周可领取彩金：{{
                   activityContent.week.amount
-                    ? format_with_substring(activityContent.week.amount)
+                    ? toThousands(activityContent.week.amount)
                     : 0
                 }}元
               </div>
@@ -175,7 +175,7 @@
           <div class="able">
             <div class="avai">
               可领取额外活跃嘉奖：{{
-                format_with_substring(activityContent.activity.reward)
+                toThousands(activityContent.activity.reward)
               }}元
             </div>
             <Button class="draw" size="mini" @click="getRecive(2)"
@@ -377,16 +377,15 @@
 import Vue from "vue";
 import {
   Progress,
-  Dialog,
   Table,
   Loading,
   Button,
   Pagination,
 } from "element-ui";
-Vue.use(Progress).use(Dialog).use(Table).use(Loading).use(Pagination);
-import { _debounce, getMondayAndSunday, judgeBrowser } from "@/utils";
+Vue.use(Progress).use(Table).use(Loading).use(Pagination);
+import { _debounce, getMondayAndSunday, judgeBrowser, toThousands } from "@/utils";
 import { mapGetters } from "vuex";
-import { format_with_substring, setEncrypt } from "@/common/js/utils";
+import { setEncrypt } from "@/common/js/utils";
 import {
   asyncGetUsernameByPlatform,
   getUsernameByPlatform,
@@ -776,7 +775,7 @@ export default {
     sessionStorage.removeItem("isfirst");
   },
   methods: {
-    format_with_substring,
+    toThousands,
     getIOSUsername() {
       const timer = setInterval(() => {
         if (window.webkit) {
