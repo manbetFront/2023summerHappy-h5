@@ -229,7 +229,7 @@
 
     <div v-show="tipdialog" class="model-box">
       <div class="modelveng" @click="tipdialog = false"></div>
-      <div  class="modeltable" :style="{ top: top + 'px' }">
+      <div class="modeltable" :style="{ top: top + 'px' }">
         <div class="post">
           <div class="cbg">
             <div class="modeltitle">温馨提示</div>
@@ -246,13 +246,28 @@
     </div>
     <div v-show="initdialog" class="model-box">
       <div class="modelveng" @click="initdialog = false"></div>
-      <div  class="back_box modeltable" :style="{ top: top + 'px' }">
+      <div class="back_box modeltable" :style="{ top: top + 'px' }">
         <div class="post">
           <div class="cbg">
             <div class="modeltitle">温馨提示</div>
             <div class="modelcontent">亲，您有彩金未领取，请尽快领哦~</div>
             <div class="btns center">
               <div class="point" @click="initdialog = false">确认</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 没有可领取的彩金 -->
+    <div v-show="nonedialog" class="model-box">
+      <div class="modelveng" @click="nonedialog = false"></div>
+      <div class="back_box modeltable" :style="{ top: top + 'px' }">
+        <div class="post">
+          <div class="cbg">
+            <div class="modeltitle">温馨提示</div>
+            <div class="modelcontent">暂时没有可领取的彩金哦~</div>
+            <div class="btns center">
+              <div class="point" @click="nonedialog = false">确认</div>
             </div>
           </div>
         </div>
@@ -654,6 +669,7 @@ export default {
       drawdialog: false,
       themedialog: false,
       initdialog: false,
+      nonedialog: false,
       loading: "",
 
       onelistdata: [],
@@ -944,7 +960,8 @@ export default {
         return;
       }
       if (!num) {
-        this.$message({ type: "warning", message: "暂时没有可领取的彩金哦～" });
+        this.nonedialog = true;
+        // this.$message({ type: "warning", message: "暂时没有可领取的彩金哦～" });
         return;
       }
       this.getType = type;
@@ -1711,7 +1728,7 @@ r2(val) {
     align-items: center;
     border-radius: r2(10);
     margin: auto;
-    
+
     .cbg {
       width: r2(357);
       height: r2(199);
