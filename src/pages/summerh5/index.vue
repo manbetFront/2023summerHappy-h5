@@ -375,15 +375,18 @@
 
 <script>
 import Vue from "vue";
+import { Progress, Table, Loading, Button, Pagination } from "element-ui";
+Vue.use(Progress)
+  .use(Dialog)
+  .use(Table)
+  .use(Loading)
+  .use(Pagination);
 import {
-  Progress,
-  Table,
-  Loading,
-  Button,
-  Pagination,
-} from "element-ui";
-Vue.use(Progress).use(Table).use(Loading).use(Pagination);
-import { _debounce, getMondayAndSunday, judgeBrowser, toThousands } from "@/utils";
+  _debounce,
+  getMondayAndSunday,
+  judgeBrowser,
+  toThousands,
+} from "@/utils";
 import { mapGetters } from "vuex";
 import { setEncrypt } from "@/common/js/utils";
 import {
@@ -709,7 +712,7 @@ export default {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
         // eslint-disable-next-line no-undef
-        new XCJSRequestParam("common", "userinfo", null, function (response) {
+        new XCJSRequestParam("common", "userinfo", null, function(response) {
           let username = response.loginName;
 
           const RE = /^d8100/;
@@ -993,7 +996,7 @@ export default {
         weeksubelect,
         weeksubchess,
       } = this;
-   
+
       if (index == 1) {
         this.weekList = isWeek ? weekimmon : weeksubimmon;
       }
@@ -1659,7 +1662,7 @@ r2(designpx) {
         }
 
         .kind {
-          font-size: r2(24);
+          font-size: r2(20);
           color: #fff;
           margin-bottom: r2(9);
           line-height: r2(35);
