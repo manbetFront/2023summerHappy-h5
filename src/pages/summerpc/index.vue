@@ -210,7 +210,7 @@
       </div>
     </div>
 
-    <div v-show="dialogVisible" class="model-box" >
+    <div v-show="dialogVisible" class="model-box">
       <div class="modelveng" @click="dialogVisible = false"></div>
       <div class="modeltable" :style="{ top: top + 'px' }">
         <div class="bkg">
@@ -715,7 +715,7 @@ export default {
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
-    this.receiveIframe()
+    this.receiveIframe();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -1612,6 +1612,7 @@ r2(val) {
 
     .btns {
       width: r2(1200);
+      margin: 0 auto
       display: flex;
       justify-content: center;
       margin-top: r2(50);
