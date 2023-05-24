@@ -652,7 +652,7 @@ export default {
       dialogVisible: false,
       tipdialog: false,
       drawdialog: false,
-      themedialog: true,
+      themedialog: false,
       initdialog: false,
       loading: "",
 
