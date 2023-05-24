@@ -860,7 +860,7 @@ export default {
           // 上周数据
           this.ProcessSubWeek(sub_week);
         } else {
-          this.$message({ type: "warning", message: res.message });
+          // this.$message({ type: "warning", message: res.message });
           // this.loading.close();
         }
       });
