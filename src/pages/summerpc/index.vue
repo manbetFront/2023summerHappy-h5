@@ -229,7 +229,7 @@
 
     <div v-show="tipdialog" class="model-box">
       <div class="modelveng" @click="tipdialog = false"></div>
-      <div class="back_box">
+      <div  class="modeltable" :style="{ top: top + 'px' }">
         <div class="post">
           <div class="cbg">
             <div class="modeltitle">温馨提示</div>
@@ -1700,8 +1700,9 @@ r2(val) {
   justify-content: center;
   align-items: center;
   z-index: 22;
+}
 
-  .post {
+ .post {
     width: r2(378);
     height: r2(220);
     background: rgba(225, 225, 225, 0.33);
@@ -1709,7 +1710,8 @@ r2(val) {
     justify-content: center;
     align-items: center;
     border-radius: r2(10);
-
+    margin: auto;
+    
     .cbg {
       width: r2(357);
       height: r2(199);
@@ -1762,7 +1764,6 @@ r2(val) {
       justify-content: center;
     }
   }
-}
 
 .login_box {
   position: absolute;
