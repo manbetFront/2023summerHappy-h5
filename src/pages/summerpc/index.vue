@@ -701,20 +701,20 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
     this.receiveIframe();
-    // this.getheme();
+    this.getheme();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
   },
-  watch: {
-    username: {
-      handler(nv) {
-        this.getheme();
-      },
-      deep: true,
-      immediate: true,
-    },
-  },
+  // watch: {
+  //   username: {
+  //     handler(nv) {
+  //       this.getheme();
+  //     },
+  //     deep: true,
+  //     immediate: true,
+  //   },
+  // },
   methods: {
     toThousands,
     localgo() {
@@ -1146,9 +1146,9 @@ r2(val) {
       margin-top: r2(43);
 
       .onetitle {
-        width: r2(935);
-        font-size: r2(24);
-        line-height: r2(35);
+        width: r2(965);
+        font-size: r2(22);
+        line-height: r2(30);
         color: #ebfa03;
         margin: 0 auto;
         padding-left: r2(40);
