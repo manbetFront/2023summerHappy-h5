@@ -386,6 +386,7 @@ import {
   judgeBrowser,
   toThousands,
 } from "@/utils";
+import { mapGetters } from "vuex";
 
 import {
   cumulativeTheme,
@@ -674,7 +675,9 @@ export default {
       top: 100,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["username"]),
+  },
   beforeCreate() {
     const isbro = judgeBrowser();
     if (isbro == "h5") {
@@ -701,20 +704,12 @@ export default {
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
     this.receiveIframe();
-    // this.getheme();
+    this.getheme();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
   },
-  watch: {
-    username: {
-      handler(nv) {
-        this.getheme();
-      },
-      deep: true,
-      immediate: true,
-    },
-  },
+
   methods: {
     toThousands,
     localgo() {
