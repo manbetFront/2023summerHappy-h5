@@ -693,7 +693,7 @@ export default {
   watch: {
     username: {
       handler(nv) {
-        // this.getheme();
+        this.getheme();
       },
       deep: true,
       immediate: true,
@@ -775,7 +775,6 @@ export default {
     //   background: "rgba(0, 0, 0, 0.7)",
     // });
 
-    this.getheme();
     let res = getMondayAndSunday();
 
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
