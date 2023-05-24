@@ -1,5 +1,5 @@
 <template>
-  <div class="pc_container">
+  <div class="pc_container" ref="home">
     <img class="logo" src="../../common/image/logo.png" />
     <div class="allbox">
       <div class="rowbox">
@@ -945,8 +945,7 @@ export default {
     },
     // 返回顶部
     backTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
+      this.$refs.home.scrollIntoView({ behavior: "smooth" });
     },
 
     getThisWeek(num, type) {
