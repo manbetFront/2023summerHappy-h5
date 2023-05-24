@@ -392,7 +392,7 @@ import {
   _debounce,
   getMondayAndSunday,
   judgeBrowser,
-  toThousands,
+  toThousands
 } from "@/utils";
 import { mapGetters } from "vuex";
 import { setEncrypt } from "@/common/js/utils";
@@ -706,7 +706,9 @@ export default {
   async mounted() {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
-      this.$router.push(`/summer_pc`);
+      this.$router.push({
+        path: '/summer_pc' + window.location.search,
+      });
       return;
     }
 

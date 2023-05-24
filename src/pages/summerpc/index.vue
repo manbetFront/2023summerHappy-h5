@@ -691,7 +691,9 @@ export default {
     // });
     const isbro = judgeBrowser();
     if (isbro == "h5") {
-      this.$router.push(`/summer_h5`);
+       this.$router.push({
+        path: '/summer_h5' + window.location.search,
+      });
       return;
     }
 
