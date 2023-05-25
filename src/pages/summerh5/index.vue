@@ -282,7 +282,7 @@
                   <div class="four">金额</div>
                   <div class="five">状态</div>
                 </div>
-                <div>
+                <div v-if="onelistdata.length > 0">
                   <div
                     class="body"
                     v-for="(item, i) in onelistdata"
@@ -307,6 +307,9 @@
                     </div>
                   </div>
                 </div>
+                <div v-else>
+                  <div class="nothing">暂无数据</div>
+                </div>
               </div>
               <Pagination
                 layout="prev, pager, next"
@@ -321,7 +324,7 @@
     <!-- 没有可领取的彩金 -->
     <div v-show="nonedialog" class="model-box">
       <div class="modelveng" @click="nonedialog = false"></div>
-      <div class="back_box modeltable" :style="{ top: top + 'px' }">
+      <div class="back_box modeltable">
         <div class="post">
           <div class="cbg">
             <div class="modeltitle">温馨提示</div>
@@ -354,7 +357,7 @@
                   <div class="pthree">领取时间</div>
                   <div class="pfour">状态</div>
                 </div>
-                <div>
+                <div v-if="twolistdata.length > 0">
                   <div class="body" v-for="(item, i) in twolistdata" :key="i">
                     <div class="pone">{{ i + 1 }}</div>
                     <div class="ptwo">{{ item.amount }}</div>
@@ -374,6 +377,9 @@
                     </div>
                   </div>
                 </div>
+                <div v-else>
+                  <div class="nothing">暂无数据</div>
+                </div>
               </div>
               <Pagination
                 layout="prev, pager, next"
@@ -383,6 +389,19 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div v-show="successdialog" class="model-box">
+      <div class="success">
+        <i class="el-icon-success"></i>
+        <div>领取成功</div>
+      </div>
+    </div>
+    <div v-show="errordialog" class="model-box">
+      <div class="warning">
+        <i class="el-icon-warning"></i>
+        <div>{{ message }}</div>
       </div>
     </div>
   </div>
@@ -398,7 +417,11 @@ import {
   Button,
   Pagination,
 } from "element-ui";
-Vue.use(Progress).use(Dialog).use(Table).use(Loading).use(Pagination);
+Vue.use(Progress)
+  .use(Dialog)
+  .use(Table)
+  .use(Loading)
+  .use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -680,6 +703,10 @@ export default {
       themedialog: false,
       initdialog: false,
       nonedialog: false,
+      successdialog: false,
+      errordialog: false,
+
+      message: "",
       loading: "",
 
       onelistdata: [],
@@ -753,7 +780,7 @@ export default {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
         // eslint-disable-next-line no-undef
-        new XCJSRequestParam("common", "userinfo", null, function (response) {
+        new XCJSRequestParam("common", "userinfo", null, function(response) {
           let username = response.loginName;
 
           const RE = /^d8100/;
@@ -1069,13 +1096,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function (e) {
+        function(e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function (e) {
+    getTop: _debounce(function(e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
@@ -1083,7 +1110,7 @@ export default {
       }
     }, 500),
 
-    getThisWeek: _debounce(function (num, type) {
+    getThisWeek: _debounce(function(num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
@@ -1106,11 +1133,14 @@ export default {
       if (this.getType == 1) {
         getNowWeekMoney().then((res) => {
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            // this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
@@ -1118,26 +1148,47 @@ export default {
         getSubWeekMoney().then((res) => {
           console.log(res);
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
+            // this.$message({ type: "success", message: "领取成功" });
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
       } else if (this.getType == 3) {
         getAwardCommen().then((res) => {
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
+            // this.$message({ type: "success", message: "领取成功" });
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
       }
+    },
+
+    // 领取成功提示
+    getsuccess() {
+      this.successdialog = true;
+      setTimeout(() => {
+        this.successdialog = false;
+      }, 2500);
+    },
+    // 领取失败提示
+    getwarning() {
+      this.errordialog = true;
+      setTimeout(() => {
+        this.errordialog = false;
+      }, 2500);
     },
     // 主题一分页
     handleSizeChange(val) {
@@ -2052,6 +2103,10 @@ r2(designpx) {
             width: 18% !important;
           }
         }
+        .nothing{
+          font-size:r2(20)
+          margin-top:r2(20)
+        }
 
         .el-pagination {
           color: #fff !important;
@@ -2093,6 +2148,44 @@ r2(designpx) {
 .none {
   background-image: none !important;
   background-color: #fff;
+}
+.success{
+  display:flex;
+  background:#f0f9eb;
+  padding:r2(30)
+  font-size:r2(34)
+  position:fixed;
+  width:60%;
+  left:20%;
+  top:30%;
+  color:#67c23a
+  border-radius:r2(8)
+  border: r2(1) solid #67c23a
+  .el-icon-circle-check{
+    font-size:r2(40)
+  }
+  div{
+    margin-left:r2(30)
+  }
+}
+.warning{
+  display:flex;
+  background:#fdf6ec;
+  padding:r2(30)
+  font-size:r2(34)
+  position:absolute;
+  width:60%;
+  left:20%;
+  top:30%;
+  color:#e6a23c
+  border-radius:r2(8)
+  border: r2(1) solid #e6a23c
+  .el-icon-circle-check{
+    font-size:r2(40)
+  }
+  div{
+    margin-left:r2(30)
+  }
 }
 
 /* 定义一个闪烁动画 */

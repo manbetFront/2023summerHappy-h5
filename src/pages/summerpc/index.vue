@@ -295,7 +295,7 @@
                   <div class="four">金额</div>
                   <div class="five">状态</div>
                 </div>
-                <div>
+                <div v-if="onelistdata.length > 0">
                   <div
                     class="body"
                     v-for="(item, i) in onelistdata"
@@ -319,6 +319,9 @@
                       }}
                     </div>
                   </div>
+                </div>
+                <div v-else>
+                  <div class="nothing">暂无数据</div>
                 </div>
               </div>
 
@@ -353,7 +356,7 @@
                   <div>领取时间</div>
                   <div>状态</div>
                 </div>
-                <div>
+                <div v-if="twolistdata.length > 0">
                   <div class="body" v-for="(item, i) in twolistdata" :key="i">
                     <div>{{ i + 1 }}</div>
                     <div>{{ item.amount }}</div>
@@ -373,6 +376,9 @@
                     </div>
                   </div>
                 </div>
+                <div v-else>
+                  <div class="nothing">暂无数据</div>
+                </div>
               </div>
 
               <Pagination
@@ -385,13 +391,32 @@
         </div>
       </div>
     </div>
+
+    <div v-show="successdialog" class="model-box">
+      <div class="success" :style="{ top: top + 'px' }">
+        <i class="el-icon-success"></i>
+        <div>领取成功</div>
+      </div>
+    </div>
+    <!-- <div class="success" v-show="successdialog" :style="{ top: top + 'px' }">
+      <i class="el-icon-success"></i>
+      <div>领取成功</div>
+    </div> -->
+    <div v-show="errordialog" class="model-box">
+      <div class="warning" :style="{ top: top + 'px' }">
+        <i class="el-icon-warning"></i>
+        <div>{{ message }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import { Progress, Table, Button, Pagination } from "element-ui";
-Vue.use(Progress).use(Table).use(Pagination);
+Vue.use(Progress)
+  .use(Table)
+  .use(Pagination);
 
 import {
   _debounce,
@@ -668,6 +693,10 @@ export default {
       themedialog: false,
       initdialog: false,
       nonedialog: false,
+      successdialog: false,
+      errordialog: false,
+
+      message: "",
       loading: "",
 
       onelistdata: [],
@@ -976,7 +1005,7 @@ export default {
           this.$refs.home.scrollIntoView({ behavior: "smooth" });
       });
     },
-    getThisWeek: _debounce(function (num, type) {
+    getThisWeek: _debounce(function(num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
@@ -999,11 +1028,14 @@ export default {
       if (this.getType == 1) {
         getNowWeekMoney().then((res) => {
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            // this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
@@ -1011,26 +1043,47 @@ export default {
         getSubWeekMoney().then((res) => {
           console.log(res);
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
+            // this.$message({ type: "success", message: "领取成功" });
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
       } else if (this.getType == 3) {
         getAwardCommen().then((res) => {
           if (res.code == 0) {
-            this.$message({ type: "success", message: "领取成功" });
+            this.getsuccess();
+            // this.$message({ type: "success", message: "领取成功" });
             this.getheme();
             this.tipdialog = false;
           } else {
-            this.$message({ type: "warning", message: res.message });
+            this.message = res.message;
+            this.getwarning();
+            // this.$message({ type: "warning", message: res.message });
             this.tipdialog = false;
           }
         });
       }
+    },
+
+    // 领取成功提示
+    getsuccess() {
+      this.successdialog = true;
+      setTimeout(() => {
+        this.successdialog = false;
+      }, 2500);
+    },
+    // 领取失败提示
+    getwarning() {
+      this.errordialog = true;
+      setTimeout(() => {
+        this.errordialog = false;
+      }, 2500);
     },
     // 主题一分页
     handleSizeChange(val) {
@@ -1079,13 +1132,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function (e) {
+        function(e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function (e) {
+    getTop: _debounce(function(e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
@@ -1939,6 +1992,10 @@ r2(val) {
             }
           }
         }
+        .nothing{
+          font-size:r2(20)
+          margin-top:r2(20)
+        }
 
         .el-pagination {
           color: #fff !important;
@@ -1976,7 +2033,42 @@ r2(val) {
 .point {
   cursor: pointer;
 }
-
+.success{
+  display:flex;
+  background:#f0f9eb;
+  padding:r2(30)
+  font-size:r2(34)
+  position:fixed;
+  width:40%;
+  left:30%;
+  color:#67c23a
+  border-radius:r2(8)
+  border: r2(1) solid #67c23a
+  .el-icon-circle-check{
+    font-size:r2(40)
+  }
+  div{
+    margin-left:r2(30)
+  }
+}
+.warning{
+  display:flex;
+  background:#fdf6ec;
+  padding:r2(30)
+  font-size:r2(34)
+  position:absolute;
+  width:40%;
+  left:30%;
+  color:#e6a23c
+  border-radius:r2(8)
+  border: r2(1) solid #e6a23c
+  .el-icon-circle-check{
+    font-size:r2(40)
+  }
+  div{
+    margin-left:r2(30)
+  }
+}
 /* 定义一个闪烁动画 */
 @keyframes blink {
   0% {
