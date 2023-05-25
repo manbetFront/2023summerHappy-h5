@@ -702,6 +702,7 @@ export default {
       },
       onetotal: 0,
       twototal: 0,
+      top: 0,
     };
   },
   computed: {
