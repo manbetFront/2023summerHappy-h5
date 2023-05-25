@@ -398,11 +398,7 @@ import {
   Button,
   Pagination,
 } from "element-ui";
-Vue.use(Progress)
-  .use(Dialog)
-  .use(Table)
-  .use(Loading)
-  .use(Pagination);
+Vue.use(Progress).use(Dialog).use(Table).use(Loading).use(Pagination);
 import {
   _debounce,
   getMondayAndSunday,
@@ -720,10 +716,11 @@ export default {
   beforeCreate() {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
-      
-      this.$router.replace({
+      let routeData = this.$router.resolve({
         path: "/summer_pc" + window.location.search,
       });
+      window.open(routeData.href, "_self");
+
       return;
     }
   },
@@ -756,7 +753,7 @@ export default {
       // eslint-disable-next-line no-undef
       xcFlutterJsSDk.request(
         // eslint-disable-next-line no-undef
-        new XCJSRequestParam("common", "userinfo", null, function(response) {
+        new XCJSRequestParam("common", "userinfo", null, function (response) {
           let username = response.loginName;
 
           const RE = /^d8100/;
@@ -1072,13 +1069,13 @@ export default {
       let _ = this;
       window.addEventListener(
         "message",
-        function(e) {
+        function (e) {
           _.getTop(e);
         },
         false
       );
     },
-    getTop: _debounce(function(e) {
+    getTop: _debounce(function (e) {
       this.top = 100;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
@@ -1086,7 +1083,7 @@ export default {
       }
     }, 500),
 
-    getThisWeek: _debounce(function(num, type) {
+    getThisWeek: _debounce(function (num, type) {
       if (!this.username) {
         this.dialogVisible = true;
         return;
