@@ -742,51 +742,66 @@ export default {
         this.weekimmon = this.peopleimgList;
         this.weekelect = this.chessimgList;
         this.weekchess = this.electimgList;
-
         this.weekList = this.peopleimgList;
         return;
       }
-
-      await cumulativeTheme().then((res) => {
-        console.log(res);
-        if (res.code == 0) {
-          if (!res.data) {
-            this.weekimmon = this.peopleimgList;
-            this.weekelect = this.chessimgList;
-            this.weekchess = this.electimgList;
-            this.weekList = this.peopleimgList;
-            // this.dialogVisible = true;
-            return;
-          }
-          let data = res.data;
-          this.activityContent = data;
-          let { week, sub_week } = data;
-
-          let isfirst = sessionStorage.getItem("isfirst");
-          console.log("isfirst", isfirst);
-          if (isfirst == 1) {
-            if (
-              !data.is_time_out &&
-              (sub_week.amount > 0 || data.activity.reward > 0)
-            ) {
-              this.initdialog = true;
-              sessionStorage.setItem("isfirst", 2);
+      try {
+        const { code, data } = await cumulativeTheme()
+          let content = data; // data 有值 说明返回成功 没有返回data
+          if (code == 0) {
+            // 第一次 应该都有值
+            if (!content) {
+              content = sessionStorage.data;
+              // 如果没有值
+              if (!content) {
+                this.weekimmon = this.peopleimgList;
+                this.weekelect = this.chessimgList;
+                this.weekchess = this.electimgList;
+                this.weekList = this.peopleimgList;
+              } else {
+                this.indexHelper(JSON.parse(sessionStorage.data));
+              }
+            } else {
+              sessionStorage.setItem("data", JSON.stringify(content));
+              this.indexHelper(content);
             }
-            // 当有可领取且在领取时间内，显示领取弹窗
-            if (week.amount > 0) {
-              this.initdialog = true;
-              sessionStorage.setItem("isfirst", 2);
-            }
+          } else {
+            sessionStorage.data &&
+              this.indexHelper(JSON.parse(sessionStorage.data));
           }
+       
+      } catch (e) {
+        console.log(e);
+        sessionStorage.data &&
+          this.indexHelper(JSON.parse(sessionStorage.data));
+      }
+    },
 
-          // 本周数据
-          this.ProcessThisWeek(week);
-          // 上周数据
-          this.ProcessSubWeek(sub_week);
-        } else {
-          // this.$message({ type: "warning", message: res.message });
+    indexHelper(content) {
+      this.activityContent = content;
+      let { week, sub_week } = content;
+
+      let isfirst = sessionStorage.getItem("isfirst");
+
+      if (isfirst == 1) {
+        if (
+          !content.is_time_out &&
+          (sub_week.amount > 0 || content.activity.reward > 0)
+        ) {
+          this.initdialog = true;
+          sessionStorage.setItem("isfirst", 2);
         }
-      });
+        // 当有可领取且在领取时间内，显示领取弹窗
+        if (week.amount > 0) {
+          this.initdialog = true;
+          sessionStorage.setItem("isfirst", 2);
+        }
+      }
+
+      // 本周数据
+      this.ProcessThisWeek(week);
+      // 上周数据
+      this.ProcessSubWeek(sub_week);
     },
     // 处理本周数据
     ProcessThisWeek(week) {
