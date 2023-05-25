@@ -720,6 +720,7 @@ export default {
   beforeCreate() {
     const isbro = judgeBrowser();
     if (isbro == "pc") {
+      
       this.$router.replace({
         path: "/summer_pc" + window.location.search,
       });

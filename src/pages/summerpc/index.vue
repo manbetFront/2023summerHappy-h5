@@ -720,7 +720,7 @@ export default {
     this.receiveIframe();
     this.getheme();
 
-    this.backTop()
+    this.backTop();
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
@@ -751,6 +751,10 @@ export default {
         console.log(res);
         if (res.code == 0) {
           if (!res.data) {
+            this.weekimmon = this.peopleimgList;
+            this.weekelect = this.chessimgList;
+            this.weekchess = this.electimgList;
+            this.weekList = this.peopleimgList;
             // this.dialogVisible = true;
             return;
           }
