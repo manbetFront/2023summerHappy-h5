@@ -54,7 +54,7 @@ export const getUsernameByPlatform = () => {
 export const getUrlParams = (url = location.href) => {
   const params = {};
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-    params[key] = decodeURIComponent(value);
+    params[key] = value
   });
   return params;
 };
