@@ -780,7 +780,7 @@ export default {
           if (code == 0) {
             // 第一次 应该都有值
             if (!content) {
-              content = sessionStorage.data;
+              content = localStorage.data;
               // 如果没有值
               if (!content) {
                 this.weekimmon = this.peopleimgList;
@@ -788,21 +788,21 @@ export default {
                 this.weekchess = this.electimgList;
                 this.weekList = this.peopleimgList;
               } else {
-                this.indexHelper(JSON.parse(sessionStorage.data));
+                this.indexHelper(JSON.parse(localStorage.data));
               }
             } else {
-              sessionStorage.setItem("data", JSON.stringify(content));
+              localStorage.setItem("data", JSON.stringify(content));
               this.indexHelper(content);
             }
           } else {
-            sessionStorage.data &&
-              this.indexHelper(JSON.parse(sessionStorage.data));
+            localStorage.data &&
+              this.indexHelper(JSON.parse(localStorage.data));
           }
        
       } catch (e) {
         console.log(e);
-        sessionStorage.data &&
-          this.indexHelper(JSON.parse(sessionStorage.data));
+        localStorage.data &&
+          this.indexHelper(JSON.parse(localStorage.data));
       }
     },
 
