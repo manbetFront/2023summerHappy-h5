@@ -775,34 +775,31 @@ export default {
         return;
       }
       try {
-        const { code, data } = await cumulativeTheme()
-          let content = data; // data 有值 说明返回成功 没有返回data
-          if (code == 0) {
-            // 第一次 应该都有值
+        const { code, data } = await cumulativeTheme();
+        let content = data; // data 有值 说明返回成功 没有返回data
+        if (code == 0) {
+          // 第一次 应该都有值
+          if (!content) {
+            content = localStorage.data;
+            // 如果没有值
             if (!content) {
-              content = localStorage.data;
-              // 如果没有值
-              if (!content) {
-                this.weekimmon = this.peopleimgList;
-                this.weekelect = this.chessimgList;
-                this.weekchess = this.electimgList;
-                this.weekList = this.peopleimgList;
-              } else {
-                this.indexHelper(JSON.parse(localStorage.data));
-              }
+              this.weekimmon = this.peopleimgList;
+              this.weekelect = this.chessimgList;
+              this.weekchess = this.electimgList;
+              this.weekList = this.peopleimgList;
             } else {
-              localStorage.setItem("data", JSON.stringify(content));
-              this.indexHelper(content);
+              this.indexHelper(JSON.parse(localStorage.data));
             }
           } else {
-            localStorage.data &&
-              this.indexHelper(JSON.parse(localStorage.data));
+            localStorage.setItem("data", JSON.stringify(content));
+            this.indexHelper(content);
           }
-       
+        } else {
+          localStorage.data && this.indexHelper(JSON.parse(localStorage.data));
+        }
       } catch (e) {
         console.log(e);
-        localStorage.data &&
-          this.indexHelper(JSON.parse(localStorage.data));
+        localStorage.data && this.indexHelper(JSON.parse(localStorage.data));
       }
     },
 
@@ -1860,7 +1857,8 @@ r2(val) {
 .login_box {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: r2(650);
+  top:20%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1868,7 +1866,7 @@ r2(val) {
 
   .post {
     width: r2(955);
-    height: auto;
+    height: r2(582);
     position: relative;
     text-align: center;
 
