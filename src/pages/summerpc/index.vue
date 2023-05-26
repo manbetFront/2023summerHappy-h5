@@ -715,7 +715,7 @@ export default {
       },
       onetotal: 0,
       twototal: 0,
-      top: 100,
+      top: 125,
     };
   },
   computed: {
@@ -1136,7 +1136,7 @@ export default {
       );
     },
     getTop: _debounce(function(e) {
-      this.top = 100;
+      this.top = 125;
       if (e.data && e.data.type === "scroll") {
         this.top = Number(e.data.scrollTop) + 30;
         if (this.top > 3800) return;
