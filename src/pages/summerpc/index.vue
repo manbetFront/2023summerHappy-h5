@@ -23,8 +23,10 @@
 
       <div class="themeone">
         <div class="onetitle">
-          主题一:活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。（领取期限：次周周二
-          23:59:59 前）
+          主题一:活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。<br />
+          <span style="color:red"
+            >小贴士：符合即可领取，领取期限至次周周二23:59:59</span
+          >
         </div>
         <div class="datecheck">
           <img
@@ -156,9 +158,8 @@
 
       <div class="themetwo">
         <div class="twotitle">
-          主题二：参与主题一的会员，自然周内完成指定任务平台数≥5个还可获得额外活跃嘉奖。
-          小贴士：自然周为周一00:00:00至周日23:59:59。（领取期限：当周周二
-          23:59:59 前）
+          主题二：自然周内完成主题一指定任务平台数≥5个，还可获得额外活跃嘉奖。<br />
+          <span style="color:red">小贴士：领取期限至当周周二23:59:59</span>
         </div>
         <div class="table">
           <div class="theader">
@@ -204,12 +205,17 @@
 
       <div class="rulebox">
         <img src="../../common/image/rule.png" />
-        <div class="ruletext">活动规则</div>
+        <div class="ruletext">领取方式</div>
         <div class="content">
-          <p>
-            【申请方式】获得彩金奖励的会员，点击领取后系统将自动派发至您的游戏账户，届时请您查收。
+          <p style="margin-bottom:0">
+            获得彩金奖励的会员，点击领取后系统将自动派发至您的游戏账户，届时请您查收。
           </p>
-          <p>【温馨提示】</p>
+        </div>
+      </div>
+      <div class="rulebox">
+        <img src="../../common/image/rule.png" />
+        <div class="ruletext">温馨提示</div>
+        <div class="content">
           <span>
             1.本优惠主题一系统将在游戏结算后进行审核派发，每个自然周各指定任务平台皆可获得一次奖励；主题二将在次周一根据上一周内达成最高条件派发一次。<br />
             2.本优惠所获的彩金奖励需会员手动点击进行领取，如在限定时间内（当周周二23:59:59前）未领取将视为放弃，无法补发。<br />
@@ -1232,7 +1238,7 @@ r2(val) {
       width: r2(1201);
       height: r2(184);
       margin: 0 auto;
-      margin-top: r2(38);
+      margin-top: r2(30);
 
       img {
         width: 100%;
@@ -1246,7 +1252,7 @@ r2(val) {
       background-image: url('../../common/image/centerbg.png');
       background-size: 100%;
       background-repeat: no-repeat;
-      margin-top: r2(43);
+      // margin-top: r2(43);
 
       .onetitle {
         width: r2(965);
@@ -1255,7 +1261,7 @@ r2(val) {
         color: #ebfa03;
         margin: 0 auto;
         padding-left: r2(40);
-        padding-top: r2(66);
+        padding-top: r2(60);
       }
 
       .datecheck {
@@ -1548,7 +1554,7 @@ r2(val) {
       background-image: url('../../common/image/botbg.png');
       background-size: 100%;
       background-repeat: no-repeat;
-      margin-top: r2(10);
+      // margin-top: r2(10);
 
       .twotitle {
         width: r2(1000);
@@ -1671,7 +1677,7 @@ r2(val) {
     .rulebox {
       width: r2(1200);
       margin: 0 auto;
-      margin-top: r2(25);
+      // margin-top: r2(25);
 
       img {
         width: r2(566);
