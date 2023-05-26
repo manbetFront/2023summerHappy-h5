@@ -29,15 +29,32 @@
           23:59:59 前）
         </div>
         <div class="datecheck">
-          <div
-            :class="isWeek ? 'triangle point' : 'triangle blue point'"
+          <img
+            class="left point"
+            v-if="isWeek"
+            src="../../common/image/jiantouleft.png"
             @click="changeSubWeek"
-          ></div>
+          />
+          <img
+            class="left point"
+            v-else
+            @click="changeSubWeek"
+            src="../../common/image/grayleft.png"
+          />
           <div class="riqi">自然周：{{ showWeek }}</div>
-          <div
-            :class="isWeek ? 'trangle point' : 'trangle yellow point'"
+
+          <img
+            class="right point"
+            v-if="!isWeek"
             @click="changeNowWeek"
-          ></div>
+            src="../../common/image/jiantouright.png"
+          />
+          <img
+            class="right point"
+            @click="changeNowWeek"
+            v-else
+            src="../../common/image/grayright.png"
+          />
         </div>
         <div class="tabs">
           <div
@@ -83,7 +100,9 @@
               <div class="tthree">{{ item.award }}元</div>
               <div class="tfour">
                 <div v-if="item.status == -1">未投注</div>
-                <div v-if="item.status == 0">进行中</div>
+                <div v-if="item.status == 0">
+                  {{ isWeek ? "进行中" : "未完成" }}
+                </div>
                 <div v-if="item.status > 0">已完成</div>
               </div>
             </div>
@@ -298,11 +317,11 @@
                       {{
                         item.status == 1
                           ? "待领取"
-                          : item.status == 0
-                          ? "进行中"
                           : item.status == 2
                           ? "已领取"
-                          : "已过期"
+                          : item.status == 3
+                          ? "已过期"
+                          : ""
                       }}
                     </div>
                   </div>
@@ -368,11 +387,11 @@
                       {{
                         item.status == 1
                           ? "待领取"
-                          : item.status == 0
-                          ? "进行中"
                           : item.status == 2
                           ? "已领取"
-                          : "已过期"
+                          : item.status == 3
+                          ? "已过期"
+                          : ""
                       }}
                     </div>
                   </div>
@@ -1363,6 +1382,17 @@ r2(designpx) {
         margin-top: r2(45);
         display: flex;
         justify-content: space-between;
+        img{
+          width:r2(22)
+          height:r2(25)
+          margin-top:r2(10)
+        }
+        .left{
+          margin-left:r2(14)
+        }
+        .right{
+          margin-right:r2(14)
+        }
 
         .triangle {
           margin-left: r2(10);
