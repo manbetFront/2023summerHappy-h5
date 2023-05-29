@@ -1375,13 +1375,13 @@ r2(designpx) {
       margin-top: r2(30);
 
       .onetitle {
-        width: r2(620);
+        width: r2(630);
         font-size: r2(18);
         line-height: r2(30);
         color: #EBFA03;
         margin: 0 auto;
         padding-top: r2(14);
-        padding-left: r2(5);
+        padding-left: r2(8);
       }
 
       .datecheck {
