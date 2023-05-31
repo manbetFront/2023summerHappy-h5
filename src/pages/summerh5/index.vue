@@ -1664,7 +1664,7 @@ r2(designpx) {
     .themetwo {
       width: r2(750);
       height: r2(544);
-      background-image: url('../../common/img/botbg.png');
+      background-image: url('../../common/img/botbg2.png');
       background-size: 100%;
       background-repeat: no-repeat;
       margin-top: r2(45);
