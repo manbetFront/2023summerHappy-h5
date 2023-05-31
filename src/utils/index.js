@@ -43,7 +43,6 @@ export function getMondayAndSunday() {
 
   var lastWeekMondayTime = thisWeekMondayTime - 7 * oneDayTime; // 上周一
   var lastWeekSundayTime = thisWeekMondayTime - oneDayTime; // 上周日
-  console.log(lastWeekSundayTime, dateToYYYYMMDD(lastWeekSundayTime));
   var res = {
     thisWeekMonday: dateToYYYYMMDD(thisWeekMondayTime),
     thisWeekSunday: dateToYYYYMMDD(thisWeekSundayTime),
@@ -84,8 +83,6 @@ export function judgeBrowser() {
   return isenv;
 }
 
-
-
 export const toThousands = (number) => {
   // 数字转为字符串，并按照 .分割
   let arr = (number + "").split(".");
@@ -107,13 +104,11 @@ export const toThousands = (number) => {
   return r + (!!fraction ? "." + fraction : "");
 };
 
-
-
-export const  getOtherQuery = (query) => {
+export const getOtherQuery = (query) => {
   return Object.keys(query).reduce((acc, cur) => {
     if (cur !== "redirect") {
       acc[cur] = query[cur];
     }
     return acc;
   }, {});
-}
+};

@@ -23,9 +23,9 @@
 
       <div class="themeone">
         <div class="onetitle">
-          主题一:活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。<br />
+          主题一：活动期间会员自然周内于真人、棋牌或电子任意单一平台投注，累计有效投注达以下要求，即可获得对应彩金奖励，完成平台数越多奖励越多。<br />
           <span style="color:red"
-            >小贴士：符合即可领取，领取期限至次周周二23:59:59</span
+            >小贴士：符合即可领取，领取期限至次周周二23:59:59。</span
           >
         </div>
         <div class="datecheck">
@@ -159,7 +159,7 @@
       <div class="themetwo">
         <div class="twotitle">
           主题二：自然周内完成主题一指定任务平台数≥5个，还可获得额外活跃嘉奖。<br />
-          <span style="color:red">小贴士：领取期限至当周周二23:59:59</span>
+          <span style="color:red">小贴士：领取期限至当周周二23:59:59。</span>
         </div>
         <div class="table">
           <div class="theader">
@@ -176,7 +176,7 @@
         <div class="mountbox">
           <div class="able">
             <div class="avai">
-              已完成指定任务平台数：{{ activityContent.activity.count }}
+              已完成指定任务平台数：{{ activityContent.activity.count }}个
             </div>
             <Button
               @click="getThisWeek(activityContent.activity.reward, 3)"
@@ -217,9 +217,9 @@
         <div class="ruletext">温馨提示</div>
         <div class="content">
           <span>
-            1、本优惠主题一每自然周指定子平台符合投注要求皆可领取一次，领取期限至次周周二23:59:59前。<br />
+            1、本优惠主题一每自然周指定子平台符合投注要求皆可领取一次，领取期限至次周周二23:59:59。<br />
 
-            2、本优惠主题二每周一根据上一自然周达成的最高条件进行统计，领取期限至当周周二23:59:59前。<br />
+            2、本优惠主题二每周一根据上一自然周达成的最高条件进行统计，领取期限至当周周二23:59:59。<br />
 
             3、本优惠所获的彩金奖励需会员手动点击进行领取，如在限定时间内未领取将视为放弃，无法补发。<br />
 
@@ -790,7 +790,7 @@ export default {
     toThousands,
     localgo() {
       window.open(
-        "https://jc.8manbet.net/mobile/#/?activityId=undefined",
+        "https://cn.manbet177.com/home/guidancecontent?t=promo&q=6 ",
         "_self"
       );
     },
