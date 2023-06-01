@@ -794,7 +794,14 @@ export default {
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
     this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
 
-    this.getheme();
+    if (
+      sessionStorage.username ||
+      getUrlParams().username ||
+      this.$store.state.username
+    ) {
+      this.getheme();
+      return;
+    }
 
     const _ = this;
     function isApp() {
