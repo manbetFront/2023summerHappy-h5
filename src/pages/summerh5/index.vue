@@ -757,6 +757,7 @@ export default {
       onetotal: 0,
       twototal: 0,
       top: 0,
+      isStart: true,
     };
   },
   computed: {
@@ -898,7 +899,7 @@ export default {
         sessionStorage.username ||
         getUrlParams().username ||
         this.$store.state.username;
-      console.log("his.username", this.username);
+
       if (!this.username) {
         // this.dialogVisible = true;
         this.weekimmon = this.peopleimgList;
@@ -931,6 +932,13 @@ export default {
           }
         } else {
           localStorage.data && this.indexHelper(JSON.parse(localStorage.data));
+
+          this.isStart = false;
+          this.weekimmon = this.peopleimgList;
+          this.weekelect = this.chessimgList;
+          this.weekchess = this.electimgList;
+
+          this.weekList = this.peopleimgList;
         }
       } catch (e) {
         console.log(e);
@@ -1085,7 +1093,7 @@ export default {
     },
     // 切换tab
     changetab(index) {
-      if (!this.username) {
+      if (!this.username || !this.isStart) {
         this.weeksubimmon = this.peopleimgList;
         this.weeksubelect = this.chessimgList;
         this.weeksubchess = this.electimgList;
