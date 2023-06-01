@@ -801,6 +801,8 @@ export default {
     ) {
       this.getheme();
       return;
+    } else {
+      this.getheme();
     }
 
     const _ = this;
