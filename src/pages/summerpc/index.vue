@@ -671,14 +671,14 @@ export default {
           platform_name: "CQ9游戏厅",
           status: -1,
         },
-        {
-          url: require("../../common/image/electicon/icg游戏.png"),
-          award: 18,
-          amount: 10000,
-          effective_betting: 0,
-          platform_name: "ICG游戏厅",
-          status: -1,
-        },
+        // {
+        //   url: require("../../common/image/electicon/icg游戏.png"),
+        //   award: 18,
+        //   amount: 10000,
+        //   effective_betting: 0,
+        //   platform_name: "ICG游戏厅",
+        //   status: -1,
+        // },
         {
           url: require("../../common/image/electicon/fc.png"),
           award: 18,
