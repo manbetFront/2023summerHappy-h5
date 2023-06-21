@@ -787,7 +787,7 @@ export default {
 
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
-    if (new Date() < new Date("2023/06/26 23:59:59")) {
+    if (new Date() < new Date("2023/06/25 23:59:59")) {
       this.showWeek = "2023/06/26-2023/07/02";
       this.preWeek = false;
     } else {
