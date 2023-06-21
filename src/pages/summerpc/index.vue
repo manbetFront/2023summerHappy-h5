@@ -32,7 +32,6 @@
           <img
             class="left point"
             v-if="!preWeek"
-            @click="changeSubWeek"
             src="../../common/image/grayleft.png"
           />
           <div v-else>
@@ -53,16 +52,23 @@
 
           <img
             class="right point"
-            v-if="!isWeek"
-            @click="changeNowWeek"
-            src="../../common/image/jiantouright.png"
-          />
-          <img
-            class="right point"
-            @click="changeNowWeek"
-            v-else
+            v-if="!preWeek"
             src="../../common/image/grayright.png"
           />
+          <div v-else>
+            <img
+              class="right point"
+              v-if="!isWeek"
+              @click="changeNowWeek"
+              src="../../common/image/jiantouright.png"
+            />
+            <img
+              class="right point"
+              @click="changeNowWeek"
+              v-else
+              src="../../common/image/grayright.png"
+            />
+          </div>
         </div>
         <div class="tabs">
           <div

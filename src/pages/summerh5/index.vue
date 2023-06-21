@@ -34,7 +34,6 @@
           <img
             class="left point"
             v-if="!preWeek"
-            @click="changeSubWeek"
             src="../../common/image/grayleft.png"
           />
           <div v-else>
@@ -52,21 +51,29 @@
             />
           </div>
 
-          <!-- <img
-            class="left point"
-            v-if="isWeek"
-            src="../../common/image/jiantouleft.png"
-            @click="changeSubWeek"
-          />
-          <img
-            class="left point"
-            v-else
-            @click="changeSubWeek"
-            src="../../common/image/grayleft.png"
-          /> -->
           <div class="riqi">自然周：{{ showWeek }}</div>
 
           <img
+            class="right point"
+            v-if="!preWeek"
+            src="../../common/image/grayright.png"
+          />
+          <div v-else>
+            <img
+              class="right point"
+              v-if="!isWeek"
+              @click="changeNowWeek"
+              src="../../common/image/jiantouright.png"
+            />
+            <img
+              class="right point"
+              @click="changeNowWeek"
+              v-else
+              src="../../common/image/grayright.png"
+            />
+          </div>
+
+          <!-- <img
             class="right point"
             v-if="!isWeek"
             @click="changeNowWeek"
@@ -77,7 +84,7 @@
             @click="changeNowWeek"
             v-else
             src="../../common/image/grayright.png"
-          />
+          /> -->
         </div>
         <div class="tabs">
           <div
