@@ -31,16 +31,24 @@
         <div class="datecheck">
           <img
             class="left point"
-            v-if="isWeek"
-            src="../../common/image/jiantouleft.png"
-            @click="changeSubWeek"
-          />
-          <img
-            class="left point"
-            v-else
+            v-if="!preWeek"
             @click="changeSubWeek"
             src="../../common/image/grayleft.png"
           />
+          <div v-else>
+            <img
+              class="left point"
+              v-if="isWeek"
+              src="../../common/image/jiantouleft.png"
+              @click="changeSubWeek"
+            />
+            <img
+              class="left point"
+              v-else
+              @click="changeSubWeek"
+              src="../../common/image/grayleft.png"
+            />
+          </div>
           <div class="riqi">自然周：{{ showWeek }}</div>
 
           <img
@@ -750,6 +758,7 @@ export default {
       twototal: 0,
       top: 125,
       isStart: true,
+      preWeek: true,
     };
   },
   computed: {
@@ -778,7 +787,13 @@ export default {
 
     this.nowWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
     this.subWeek = res.lastWeekMonday + "-" + res.lastWeekSunday;
-    this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+    if (new Date() < new Date("2023/06/26 23:59:59")) {
+      this.showWeek = "2023/06/26-2023/07/02";
+      this.preWeek = false;
+    } else {
+      this.showWeek = res.thisWeekMonday + "-" + res.thisWeekSunday;
+      this.preWeek = true;
+    }
 
     this.receiveIframe();
     this.getheme();
