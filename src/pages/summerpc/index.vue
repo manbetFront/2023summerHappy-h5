@@ -814,6 +814,7 @@ export default {
   },
   destroyed() {
     sessionStorage.removeItem("isfirst");
+    localStorage.removeItem("data");
   },
 
   methods: {
